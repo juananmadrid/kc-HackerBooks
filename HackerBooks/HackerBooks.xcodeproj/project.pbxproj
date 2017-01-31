@@ -12,6 +12,8 @@
 		583386671E40E5A5004D2526 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 583386651E40E5A5004D2526 /* Main.storyboard */; };
 		583386691E40E5A5004D2526 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 583386681E40E5A5004D2526 /* Assets.xcassets */; };
 		5833866C1E40E5A5004D2526 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5833866A1E40E5A5004D2526 /* LaunchScreen.storyboard */; };
+		583386791E40F043004D2526 /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = 583386781E40F043004D2526 /* books_readable.json */; };
+		5833867B1E40F1B9004D2526 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5833867A1E40F1B9004D2526 /* Book.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		583386681E40E5A5004D2526 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5833866B1E40E5A5004D2526 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5833866D1E40E5A5004D2526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		583386781E40F043004D2526 /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
+		5833867A1E40F1B9004D2526 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 		583386601E40E5A5004D2526 /* HackerBooks */ = {
 			isa = PBXGroup;
 			children = (
+				5833867C1E40F1C5004D2526 /* Models */,
+				583386731E40EF0A004D2526 /* Resources */,
 				583386611E40E5A5004D2526 /* AppDelegate.swift */,
 				583386631E40E5A5004D2526 /* ViewController.swift */,
 				583386651E40E5A5004D2526 /* Main.storyboard */,
@@ -62,6 +68,38 @@
 				5833866D1E40E5A5004D2526 /* Info.plist */,
 			);
 			path = HackerBooks;
+			sourceTree = "<group>";
+		};
+		583386731E40EF0A004D2526 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				583386771E40EF3D004D2526 /* PDF */,
+				583386761E40EF2A004D2526 /* JSON */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		583386761E40EF2A004D2526 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				583386781E40F043004D2526 /* books_readable.json */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
+		583386771E40EF3D004D2526 /* PDF */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = PDF;
+			sourceTree = "<group>";
+		};
+		5833867C1E40F1C5004D2526 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5833867A1E40F1B9004D2526 /* Book.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583386791E40F043004D2526 /* books_readable.json in Resources */,
 				5833866C1E40E5A5004D2526 /* LaunchScreen.storyboard in Resources */,
 				583386691E40E5A5004D2526 /* Assets.xcassets in Resources */,
 				583386671E40E5A5004D2526 /* Main.storyboard in Resources */,
@@ -138,6 +177,7 @@
 			files = (
 				583386641E40E5A5004D2526 /* ViewController.swift in Sources */,
 				583386621E40E5A5004D2526 /* AppDelegate.swift in Sources */,
+				5833867B1E40F1B9004D2526 /* Book.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +339,7 @@
 				583386721E40E5A5004D2526 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
