@@ -14,12 +14,12 @@ class Book {
     // MARK: - Stored Properties
     let titulo      :   String
     let autores     :   String
-    // let tags        :   [String]?      // Cambiar por Type [Tag]
-    let urlPortada  :   URL
+    let tags        :   [String]          // Cambiar por Type [Tag] ?
+    let urlImage    :   URL
     let urlPdf      :   URL
     
     // MARK: - Computed Properties
-/*    var tags : [String]?{               // Cambiar por Type [Tag]
+/*    var tags : [String]?{                // Cambiar por Type [Tag]
         get{
             guard let tag = tags else{
                 return []                  // Usar getter de SUSCRIPT DE Library
@@ -33,14 +33,14 @@ class Book {
     
     init(title: String,
          authors: String,
-         // tags: [String]?,
-         image_url: URL,
+         tags: [String],
+         photo_url: URL,
          pdf_url: URL){
         
         titulo = title
         autores = authors
-        // self.tags = tags
-        urlPortada = image_url
+        self.tags = tags
+        urlImage = photo_url
         urlPdf = pdf_url
         
     }
@@ -48,7 +48,7 @@ class Book {
     // MARK: - Proxies
     func proxyForEquality() -> String{
         
-        return "\(titulo)\(autores)\(urlPortada)\(urlPdf)"
+        return "\(titulo)\(autores)\(urlImage)\(urlPdf)"
     }
     
     func proxyForComparison() -> String{

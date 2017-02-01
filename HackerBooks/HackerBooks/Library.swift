@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-
-//: # MULTIDICTIONARY
+//: # MULTIDICTIONARY BASED STRUCTURE
 
 public
 struct Library<Tag: Hashable, Value: Hashable>{
@@ -18,19 +17,38 @@ struct Library<Tag: Hashable, Value: Hashable>{
     // MARK: - Types
     public
     typealias Bucket = Set<Value>
-    // typealias books = [Book]
-    // typealias tags = [Tags]
+    typealias Books = [Book]
+    // var tags = [Tag]
     
     // MARK: - Properties
     
     private
     var _dict : [Tag : Bucket]          // Bucket: cubo de libros
     
-    // MARK: - Lifecycle
-    public
-    init() {
+    
+    // MARCK: - Initialization
+    init(booksArray books: Books){
+        
         _dict = Dictionary()            // Creamos diccionario vacío
+        
+        // Recorremos el array de books asignamos libro a cada Tags
+        // para cada libro, para cada tags hago un set con [tat] = book.title
+
+        for each in books{          // Para cada libro
+            
+            // let array = each.tags
+            
+            for tag in each.tags{   // Para cada tag
+                
+                guard let previous = _dict[tag] else{   // si tag existe no entro
+                    _dict[tag] = Bucket()               // si tag no existe lo creo con un tag vacío
+                    return
+                }
+                 _dict[tag] = previous.union(each.titulo)
+            }
+        }
     }
+    
     
     // MARK: - Accessors (Getters)
     public
@@ -75,7 +93,7 @@ struct Library<Tag: Hashable, Value: Hashable>{
                 return                                  // añadir nada es no añadir, salimos y ya
             }
             guard let previous = _dict[tag] else {
-                // Si no existía creamos un nuevo tag (backet) añadiendo un tag (bucket) vacío
+                // Si no existía el backet creamos un nuevo añadiendo un tag (bucket) vacío
                 _dict[tag] = Bucket()
                 return
             }
