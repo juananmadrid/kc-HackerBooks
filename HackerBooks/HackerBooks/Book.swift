@@ -11,27 +11,35 @@ import UIKit
 
 class Book {
     
-    // MARK: - Stored properties
+    // MARK: - Stored Properties
     let titulo      :   String
     let autores     :   String
-    let tags        :   [String]?      // Cambiar por Type [Tag]
+    // let tags        :   [String]?      // Cambiar por Type [Tag]
     let urlPortada  :   URL
     let urlPdf      :   URL
     
     // MARK: - Computed Properties
-
+/*    var tags : [String]?{               // Cambiar por Type [Tag]
+        get{
+            guard let tag = tags else{
+                return []                  // Usar getter de SUSCRIPT DE Library
+            }
+            return Library[titulo]
+        }
+    }
+*/
     
     // MARK: - Inizialization
     
     init(title: String,
          authors: String,
-         tags: [String]?,
+         // tags: [String]?,
          image_url: URL,
          pdf_url: URL){
         
         titulo = title
         autores = authors
-        self.tags = tags
+        // self.tags = tags
         urlPortada = image_url
         urlPdf = pdf_url
         
