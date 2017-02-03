@@ -88,8 +88,7 @@ func convers(_ array: Array<String>) -> tagArray{
     var arrayTag: tagArray = []
     
     for each in array{
-        let tag: Tag
-        tag.name = each
+        let tag = Tag (tag: each)
         arrayTag.append(tag)
     }
     return arrayTag

@@ -19,6 +19,8 @@
 		5833867B1E40F1B9004D2526 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5833867A1E40F1B9004D2526 /* Book.swift */; };
 		583C03121E4481A200E972A8 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C03111E4481A200E972A8 /* Library.swift */; };
 		583C03141E44824A00E972A8 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C03131E44824A00E972A8 /* Tag.swift */; };
+		583C03171E4518A000E972A8 /* LibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C03151E4518A000E972A8 /* LibraryTableViewController.swift */; };
+		583C03181E4518A000E972A8 /* LibraryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 583C03161E4518A000E972A8 /* LibraryTableViewController.xib */; };
 		5840FBD01E439966003336E0 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5840FBCF1E439966003336E0 /* MultiDictionary.swift */; };
 		58892E901E42517600AE5C82 /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +40,8 @@
 		5833867A1E40F1B9004D2526 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		583C03111E4481A200E972A8 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		583C03131E44824A00E972A8 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		583C03151E4518A000E972A8 /* LibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewController.swift; sourceTree = "<group>"; };
+		583C03161E4518A000E972A8 /* LibraryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryTableViewController.xib; sourceTree = "<group>"; };
 		5840FBCF1E439966003336E0 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 		58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				58892E8E1E42515100AE5C82 /* Frameworks */,
+				583C03191E4518B600E972A8 /* Controllers */,
 				5833867C1E40F1C5004D2526 /* Models */,
 				583386731E40EF0A004D2526 /* Resources */,
 				583386611E40E5A5004D2526 /* AppDelegate.swift */,
@@ -121,6 +126,15 @@
 				583C03131E44824A00E972A8 /* Tag.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		583C03191E4518B600E972A8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				583C03151E4518A000E972A8 /* LibraryTableViewController.swift */,
+				583C03161E4518A000E972A8 /* LibraryTableViewController.xib */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		58892E8E1E42515100AE5C82 /* Frameworks */ = {
@@ -192,6 +206,7 @@
 			files = (
 				583386791E40F043004D2526 /* books_readable.json in Resources */,
 				5833866C1E40E5A5004D2526 /* LaunchScreen.storyboard in Resources */,
+				583C03181E4518A000E972A8 /* LibraryTableViewController.xib in Resources */,
 				583386691E40E5A5004D2526 /* Assets.xcassets in Resources */,
 				583386671E40E5A5004D2526 /* Main.storyboard in Resources */,
 			);
@@ -209,6 +224,7 @@
 				58207EEE1E41F6D4005E8B64 /* AsyncData.swift in Sources */,
 				58892E901E42517600AE5C82 /* FoundationExtensions.swift in Sources */,
 				583386621E40E5A5004D2526 /* AppDelegate.swift in Sources */,
+				583C03171E4518A000E972A8 /* LibraryTableViewController.swift in Sources */,
 				583C03141E44824A00E972A8 /* Tag.swift in Sources */,
 				5840FBD01E439966003336E0 /* MultiDictionary.swift in Sources */,
 				583C03121E4481A200E972A8 /* Library.swift in Sources */,
