@@ -23,6 +23,7 @@ import UIKit
 typealias JSONObject        =   AnyObject
 typealias JSONDictionary    =   [String : JSONObject]
 typealias JSONArray         =   [JSONDictionary]
+typealias tagArray          = [Tag]
 
 
 // MARK: - Decoder
@@ -30,31 +31,35 @@ func decode(book json: JSONDictionary) throws -> Book{
     
     // Validamos el diccionario
     guard let urlString_image = json["image_url"] as? String,     // Convierto url en String comprobando error
-        let url_image = URL(string:urlString_image),              // Convierto string en url
-        let image = UIImage(named: url_image.lastPathComponent)   // Capturo nombre del fichero imagen
+        let url_image = URL(string:urlString_image)              // Convierto string en url
+        // let image = UIImage(named: url_image.lastPathComponent)   // Capturo nombre del fichero imagen
         else{
             throw LibraryError.wrongURLFormatForJSONResource
     }
     
     guard let urlString_pdf = json["pdf_url"] as? String,         // Convierto url en String comprobando error
-         let url_pdf = URL(string:urlString_pdf),                 // Convierto string en url
-         let pdf:String = url_pdf.lastPathComponent              // Capturo nombre del pdf
-         else{                     // Compruebo que es un pdf
+         let url_pdf = URL(string:urlString_pdf)                 // Convierto string en url
+         // let pdf:String = url_pdf.lastPathComponent               // Capturo nombre del pdf
+         else{
             throw LibraryError.wrongURLFormatForJSONResource
     }
     
-    guard let tags = json["tags"] as? String,
-        let tagsArray:Array = tags.components(separatedBy: ",") else{
-            throw LibraryError.wrongJSONFormat
-    }
     
-    // Resto del diccionario
     let autor 	= json["authors"] as? String
-    if let titulo  = json["title"] as? String{
+    let titulo  = json["title"] as? String
     
-        return Book(title: titulo,
+    
+    if let tags = json["tags"] as? String{
+        
+        // Convierto string de tags separados con comas en array de String
+        let array:Array = tags.components(separatedBy: ",")
+    
+        // Convierto array de String en array de Tag
+        let arrayTag = convers(array)
+
+        return Book(title: titulo!,
                     authors: autor!,
-                    tags: tagsArray,
+                    tags: arrayTag,
                     photo_url: url_image,
                     pdf_url: url_pdf)
         
@@ -73,6 +78,23 @@ func decode(book json: JSONDictionary?) throws -> Book{
     return try decode(book: json)
     
 }
+
+
+// MARK: - Utils
+
+// Función que convierte array de String en array de Tags
+func convers(_ array: Array<String>) -> tagArray{
+    
+    var arrayTag: tagArray = []
+    
+    for each in array{
+        let tag: Tag
+        tag.name = each
+        arrayTag.append(tag)
+    }
+    return arrayTag
+}
+
 
 
 // MARK: - Loading

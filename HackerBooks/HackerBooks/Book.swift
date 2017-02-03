@@ -14,26 +14,16 @@ class Book {
     // MARK: - Stored Properties
     let titulo      :   String
     let autores     :   String
-    let tags        :   [String]          // Cambiar por Type [Tag] ?
+    let tags        :   [Tag]
     let urlImage    :   URL
     let urlPdf      :   URL
     
-    // MARK: - Computed Properties
-/*    var tags : [String]?{                // Cambiar por Type [Tag]
-        get{
-            guard let tag = tags else{
-                return []                  // Usar getter de SUSCRIPT DE Library
-            }
-            return Library[titulo]
-        }
-    }
-*/
     
     // MARK: - Inizialization
     
     init(title: String,
          authors: String,
-         tags: [String],
+         tags: [Tag],
          photo_url: URL,
          pdf_url: URL){
         
@@ -47,7 +37,6 @@ class Book {
     
     // MARK: - Proxies
     func proxyForEquality() -> String{
-        
         return "\(titulo)\(autores)\(urlImage)\(urlPdf)"
     }
     
@@ -61,10 +50,9 @@ class Book {
 // MARK: - Protocols
 
 extension Book: Equatable{
-    
+
     public static func ==(lhs: Book,
                           rhs: Book) -> Bool{
-        
         return (lhs.proxyForEquality() == rhs.proxyForEquality())
     }
 }
@@ -73,7 +61,6 @@ extension Book: Comparable{
     
     public static func <(lhs: Book,
                          rhs: Book) -> Bool{
-        
         return (lhs.proxyForComparison() < rhs.proxyForComparison())
     }
 }

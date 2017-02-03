@@ -17,7 +17,8 @@
 		5833866C1E40E5A5004D2526 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5833866A1E40E5A5004D2526 /* LaunchScreen.storyboard */; };
 		583386791E40F043004D2526 /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = 583386781E40F043004D2526 /* books_readable.json */; };
 		5833867B1E40F1B9004D2526 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5833867A1E40F1B9004D2526 /* Book.swift */; };
-		5833867E1E410020004D2526 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5833867D1E410020004D2526 /* Library.swift */; };
+		583C03121E4481A200E972A8 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C03111E4481A200E972A8 /* Library.swift */; };
+		583C03141E44824A00E972A8 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C03131E44824A00E972A8 /* Tag.swift */; };
 		5840FBD01E439966003336E0 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5840FBCF1E439966003336E0 /* MultiDictionary.swift */; };
 		58892E901E42517600AE5C82 /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +36,8 @@
 		5833866D1E40E5A5004D2526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		583386781E40F043004D2526 /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
 		5833867A1E40F1B9004D2526 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		5833867D1E410020004D2526 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		583C03111E4481A200E972A8 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		583C03131E44824A00E972A8 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		5840FBCF1E439966003336E0 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 		58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,11 +113,12 @@
 			isa = PBXGroup;
 			children = (
 				5833867A1E40F1B9004D2526 /* Book.swift */,
-				5833867D1E410020004D2526 /* Library.swift */,
+				583C03111E4481A200E972A8 /* Library.swift */,
 				58207EED1E41F6D4005E8B64 /* AsyncData.swift */,
 				58207EEF1E4203CB005E8B64 /* JSONProcessing.swift */,
 				58207EF11E420D1C005E8B64 /* Errors.swift */,
 				5840FBCF1E439966003336E0 /* MultiDictionary.swift */,
+				583C03131E44824A00E972A8 /* Tag.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -203,11 +206,12 @@
 			files = (
 				58207EF01E4203CB005E8B64 /* JSONProcessing.swift in Sources */,
 				583386641E40E5A5004D2526 /* ViewController.swift in Sources */,
-				5833867E1E410020004D2526 /* Library.swift in Sources */,
 				58207EEE1E41F6D4005E8B64 /* AsyncData.swift in Sources */,
 				58892E901E42517600AE5C82 /* FoundationExtensions.swift in Sources */,
 				583386621E40E5A5004D2526 /* AppDelegate.swift in Sources */,
+				583C03141E44824A00E972A8 /* Tag.swift in Sources */,
 				5840FBD01E439966003336E0 /* MultiDictionary.swift in Sources */,
+				583C03121E4481A200E972A8 /* Library.swift in Sources */,
 				5833867B1E40F1B9004D2526 /* Book.swift in Sources */,
 				58207EF21E420D1C005E8B64 /* Errors.swift in Sources */,
 			);

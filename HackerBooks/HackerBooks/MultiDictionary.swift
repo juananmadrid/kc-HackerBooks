@@ -71,6 +71,13 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
         return tally
     }
     
+    
+    public
+    func countBucketsForValue(key: Key) -> Int{       /// Nº CUBOS POR CADA KEY
+        return _dict[key]!.count
+    }
+    
+    
     public
     var keys : LazyMapCollection<Dictionary<Key, Bucket>,Key> {
         return _dict.keys
@@ -106,6 +113,7 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
             _dict[key] = previous.union(newBucket)
         }
     }
+
     
     // Hay que insertar valores en nuestro diccionario. Con el set normal no se puede
     // Con esta clave coge este libro
