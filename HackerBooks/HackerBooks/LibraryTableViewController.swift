@@ -77,6 +77,7 @@ class LibraryTableViewController: UITableViewController {
         // Configurarla
         cell?.imageView?.image        =   UIImage(named: (book?.urlImage.lastPathComponent)!)
         cell?.textLabel?.text         =   book?.titulo
+        cell?.detailTextLabel?.text   =   book?.autores
         cell?.detailTextLabel?.text   =   tagArraytoString(fromArrayTags: (book?.tags)!)
         
         // Devolverla

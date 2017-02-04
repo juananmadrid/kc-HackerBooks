@@ -18,10 +18,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // Creamos una windows de verdad, no opcional
-        window = UIWindow(fram: UIScreen.main.bounds)
+        window = UIWindow(frame: UIScreen.main.bounds)
     
         // Creamos instancia del modelo
-        
+        do{
+            // Comprobamos si están los ficheros cargados
+            
+            // Si no están los ficheros cargados los descargamos y los cargamos
+            
+    
+            // cargamos json
+            var json = try loadFromLocalFile(fileName: "books_readable")
+            
+            // Creamos array de clases tipo Book
+            var books = [Book]()
+            for each in json{
+                do{
+                    let book = try decode(book: each)
+                    books.append(book)
+                }catch{
+                    print("Error al procesar \(each)")
+                }
+            }
+            
+            
+            // Creamos el modelo
+            let model = Library(bookArray: books)
+            
+            // Creamos LibraryVC
+            let lVC = LibraryTableViewController(model: model)
+            
+            // Creamos un Nav
+            let lNav = UINavigationController(rootViewController: lVC)
+            
+            
+            // Indicamos a la windows elemento root
+            window?.rootViewController = lNav
+            
+            // Mostramos la window
+            window?.makeKeyAndVisible()
+            
+            return true
+            
+            
+        }catch{
+            fatalError("Error while loading Model from JSON")
+        }
         
         
         
