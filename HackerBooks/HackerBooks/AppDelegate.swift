@@ -21,14 +21,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
     
         // Creamos instancia del modelo
+        
         do{
-            // Comprobamos si están los ficheros cargados
+        // Comprobamos si están los ficheros ya cargados de anteriormente. Dos opciones:
+            // 1. OK. Guardo flag en NSUserDefaults (mira online), que indica si es la primera vez que arrancamos
+            // 2. Comprobando la existencia del fichero en sí cuando arrancas
             
-            // Si no están los ficheros cargados los descargamos y los cargamos
+            let defaults = UserDefaults.standard
+            let filesLoaded = defaults.bool(forKey: "filesLoaded")
             
-    
+            if (filesLoaded == false){
+                try downloadJSONFiles()
+            }
+            
+            
             // cargamos json
-            var json = try loadFromLocalFile(fileName: "books_readable")
+            try? downloadJSONFiles()
+            
+            let json = try loadFromLocalFile(fileName: "books_readable")
             
             // Creamos array de clases tipo Book
             var books = [Book]()
@@ -39,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }catch{
                     print("Error al procesar \(each)")
                 }
+                books.sort()        // Ordenamos array de books
             }
             
             
@@ -74,7 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     
-    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -97,6 +107,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+}
+
+// Utils
+
+func downloadJSONFiles() throws {
+    
+    do{
+        
+        // No están los ficheros cargados, los descargamos y los guardamos
+        let url = URL(string: "https://t.co/K9ziV0z3SJ")
+        let data = try? Data(contentsOf: url!)
+        guard let json = data else{
+            throw LibraryError.resourcePointedByURLNotReachable
+        }
+            
+        // Guardamos el json descargado en un archivo
+            
+        // NSArray de NSURLs con los volumenes montados del pc
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        // Path de Documents
+        let path = urls[0]
+        // url del fichero
+        let url_file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
+        
+        let fileManager = FileManager.default
+        // Creamos fichero
+        let created = fileManager.createFile(atPath: url_file.path, contents: json, attributes: nil)
+        
+        // Creamos flag indicador de fichero cargado
+        let flag: Bool = created
+        let defaults = UserDefaults.standard
+        defaults.set(flag, forKey: "filesLoaded")
+    
+        
+        return
+    
+        }catch {
+        throw LibraryError.resourcePointedByURLNotReachable
 
 }
 
+
+func downloadImageFiles() throws {
+    
+}
+
+
+func downloadPDFFile() throws {
+    
+}
+
+
+}
