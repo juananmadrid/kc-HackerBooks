@@ -23,7 +23,7 @@ import UIKit
 typealias JSONObject        =   AnyObject
 typealias JSONDictionary    =   [String : JSONObject]
 typealias JSONArray         =   [JSONDictionary]
-typealias tagArray          = [Tag]
+typealias tagArray          =   [Tag]
 
 
 // MARK: - Decoder
@@ -98,16 +98,32 @@ func convers(_ array: Array<String>) -> tagArray{
 
 // MARK: - Loading
 
-// Función que carga JSON de un fichero y devuelve un array de books
-func loadFromLocalFile(fileName name: String,                   // Obtenemos diccionario con url del fichero
-    bundle: Bundle = Bundle.main) throws -> JSONArray{
+// Función que carga JSON e imagenes y devuelve un array de books
+func loadFromLocalFile(fileName name: String) throws -> JSONArray{
     
-    // Validamos url del fichero con funcion "forResource" declarada en Framework que averigua ruta fichero
-    if let url = bundle.url(forResource: name),
+    let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+    let url = URL(fileURLWithPath: path)
+    
+    if url == URL(fileURLWithPath: path),
         let data = try? Data(contentsOf: url),                  // obtenemos datos
         let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,
-        let array = maybeArray {                                // JSONSerialization convierte JSON en diccionario
-        return array
+        let jsonArray = maybeArray {                                // JSONSerialization convierte JSON en diccionario
+        
+        // Descargamos y guardamos imágenes
+        for each in jsonArray{
+
+            guard let urlString_image = each["image_url"] as? String,
+                let url_image = URL(string:urlString_image),
+                let data = NSData(contentsOf: url_image) as? Data
+                else{
+                    throw LibraryError.wrongURLFormatForJSONResource
+            }
+            let fileManager = FileManager.default
+            fileManager.createFile(atPath: path, contents: data, attributes: nil)
+        }
+        
+        return jsonArray
+        
     }else{
         throw LibraryError.jsonParsingError
     }

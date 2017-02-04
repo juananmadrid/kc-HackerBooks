@@ -27,20 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // 1. OK. Guardo flag en NSUserDefaults (mira online), que indica si es la primera vez que arrancamos
             // 2. Comprobando la existencia del fichero en sí cuando arrancas
             
+            // Comprobamos si ficheros guardados comprobando flag
             let defaults = UserDefaults.standard
             let filesLoaded = defaults.bool(forKey: "filesLoaded")
             
+            // si json no guardado lo descargamos
             if (filesLoaded == false){
                 try downloadJSONFiles()
             }
             
-            
             // cargamos json
-            try? downloadJSONFiles()
-            
             let json = try loadFromLocalFile(fileName: "books_readable")
             
-            // Creamos array de clases tipo Book
+            // Creamos array de clases tipo Book decodificando json
             var books = [Book]()
             for each in json{
                 do{
@@ -52,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 books.sort()        // Ordenamos array de books
             }
             
+
             
             // Creamos el modelo
             let model = Library(bookArray: books)
@@ -124,33 +124,27 @@ func downloadJSONFiles() throws {
             
         // Guardamos el json descargado en un archivo
             
-        // NSArray de NSURLs con los volumenes montados del pc
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         // Path de Documents
-        let path = urls[0]
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         // url del fichero
         let url_file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
-        
-        let fileManager = FileManager.default
         // Creamos fichero
+        let fileManager = FileManager.default
         let created = fileManager.createFile(atPath: url_file.path, contents: json, attributes: nil)
         
-        // Creamos flag indicador de fichero cargado
+        // Creamos flag indicador para indicar fichero cargado
         let flag: Bool = created
         let defaults = UserDefaults.standard
         defaults.set(flag, forKey: "filesLoaded")
-    
         
-        return
-    
-        }catch {
+        }catch{
         throw LibraryError.resourcePointedByURLNotReachable
-
+        }
 }
 
 
-func downloadImageFiles() throws {
-    
+func downloadImageFiles(arrayBooks array: Array<String>) throws {
+
 }
 
 
@@ -159,4 +153,3 @@ func downloadPDFFile() throws {
 }
 
 
-}
