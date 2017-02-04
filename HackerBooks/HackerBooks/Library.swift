@@ -54,7 +54,7 @@ class Library{
     // MARK: - Accesors
     
     
-    // Nº Total de libros
+    // Nº Total de LIBROS
     var booksCount: Int{
         get{
             let count: Int = self.books.count
@@ -62,7 +62,14 @@ class Library{
         }
     }
 
-
+    // Nº total de TAGS ó SECCIONES
+    var tagCount: Int{
+        get{
+            let countTag : Int = self.tags.count
+            return countTag
+        }
+    }
+    
     
     // Cantidad de libros por tag. Si no existe el tag devolvemos 0
     func bookCount(forTagName name: String) -> Int{
@@ -132,28 +139,31 @@ class Library{
         }else{
             return nil
         }
-
-
-    
-    
-    var isEmpty: Bool {
-        return mdict.isEmpty
     }
     
-    var countTags: Int {                    // Nº total de TAGS
-        return mdict.count
+    
+    var isEmpty: Bool{
+        get{
+            let empty : Bool = mdict.isEmpty
+            return empty
+        }
     }
     
-    var countBooks: Int {                   // Nº Total de LIBROS (sin repetir)
-        return mdict.countUnique
+    var countBooks: Int{                   // Nº Total de LIBROS (sin repetir)
+        get{
+            let countb : Int = mdict.countUnique
+            return countb
+        }
     }
     
     var countCubos: Int{                    // Nº Total de LIBROS q aparecen (con repetidos)
-        return mdict.count
+        get{
+            let countcub : Int = mdict.count
+            return countcub
+        }
     }
     
 
     
-}
 }
 

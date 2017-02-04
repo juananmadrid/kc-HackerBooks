@@ -48,7 +48,6 @@ func decode(book json: JSONDictionary) throws -> Book{
     let autor 	= json["authors"] as? String
     let titulo  = json["title"] as? String
     
-    
     if let tags = json["tags"] as? String{
         
         // Convierto string de tags separados con comas en array de String
@@ -82,7 +81,7 @@ func decode(book json: JSONDictionary?) throws -> Book{
 
 // MARK: - Utils
 
-// Función que convierte array de String en array de Tags
+// Función que convierte array de Strings en array de Tags
 func convers(_ array: Array<String>) -> tagArray{
     
     var arrayTag: tagArray = []
