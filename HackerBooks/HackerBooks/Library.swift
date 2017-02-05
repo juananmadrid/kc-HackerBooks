@@ -45,8 +45,6 @@ class Library{
                     mdict[tag.name] = bucket        //
                 }
             
-            /// Ordenamos los libros dentro de cada tag........?????????????
-
         }
     }
 

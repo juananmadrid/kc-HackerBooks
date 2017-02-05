@@ -104,23 +104,32 @@ func loadFromLocalFile(fileName name: String) throws -> JSONArray{
     let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
     let url = URL(fileURLWithPath: path)
     
+    
     if url == URL(fileURLWithPath: path),
         let data = try? Data(contentsOf: url),                  // obtenemos datos
         let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,
         let jsonArray = maybeArray {                                // JSONSerialization convierte JSON en diccionario
         
-        // Descargamos y guardamos imágenes
-        for each in jsonArray{
+        // Descargamos y guardamos imágenes si no están cargadas
+        
+        let defaults = UserDefaults.standard
+        let filesLoaded = defaults.bool(forKey: "filesLoaded")
 
-            guard let urlString_image = each["image_url"] as? String,
-                let url_image = URL(string:urlString_image),
-                let data = NSData(contentsOf: url_image) as? Data
-                else{
-                    throw LibraryError.wrongURLFormatForJSONResource
+        if (filesLoaded == false){
+            for each in jsonArray{
+                
+                guard let urlString_image = each["image_url"] as? String,
+                    let url_image = URL(string:urlString_image),
+                    let data = try? Data(contentsOf: url_image)
+                    else{
+                        throw LibraryError.wrongURLFormatForJSONResource
+                }
+                let fileManager = FileManager.default
+                fileManager.createFile(atPath: path, contents: data, attributes: nil)
             }
-            let fileManager = FileManager.default
-            fileManager.createFile(atPath: path, contents: data, attributes: nil)
+
         }
+
         
         return jsonArray
         
@@ -129,20 +138,3 @@ func loadFromLocalFile(fileName name: String) throws -> JSONArray{
     }
 }
 
-
-    /// Carga JSON desde carpeta Documens de la Sandbox
-/*
-func loadFromLocalFile(fileName name: String,                   // Obtenemos diccionario con url del fichero
-    bundle: Bundle = Bundle.main) throws -> JSONArray{
-    
-    
-    if let url = bundle.url(forResource: name),                 // validamos url del fichero
-        let data = try? Data(contentsOf: url),                      // obtenemos datos
-        let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,
-        let array = maybeArray {                                // JSONSerialization convierte JSON en diccionario
-        return array
-    }else{
-        throw StarWarsError.jsonParsingError
-    }
-}
- */

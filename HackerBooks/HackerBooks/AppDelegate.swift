@@ -137,14 +137,10 @@ func downloadJSONFiles() throws {
         let defaults = UserDefaults.standard
         defaults.set(flag, forKey: "filesLoaded")
         
+        
         }catch{
         throw LibraryError.resourcePointedByURLNotReachable
         }
-}
-
-
-func downloadImageFiles(arrayBooks array: Array<String>) throws {
-
 }
 
 
