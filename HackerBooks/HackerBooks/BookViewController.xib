@@ -20,18 +20,19 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ilb-8f-8Z4">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Ilb-8f-8Z4" userLabel="RootStackView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="wG6-rt-xGd" userLabel="photoView">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUR-kx-Mnh">
                             <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                             <items>
                                 <barButtonItem title="Read" id="zbf-0E-V5i">
                                     <connections>
-                                        <action selector="ReadPDF:" destination="-1" id="Th7-Ua-sst"/>
+                                        <action selector="readPDF:" destination="-1" id="HIR-f0-ijq"/>
                                     </connections>
                                 </barButtonItem>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="clf-4t-7Yo"/>
@@ -42,7 +43,7 @@
                                         <state key="normal" title="Favorites"/>
                                     </button>
                                     <connections>
-                                        <action selector="Favorites:" destination="-1" id="Vqg-eQ-GSU"/>
+                                        <action selector="favorites:" destination="-1" id="taO-NP-Qtv"/>
                                     </connections>
                                 </barButtonItem>
                             </items>

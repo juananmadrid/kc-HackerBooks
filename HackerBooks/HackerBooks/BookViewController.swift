@@ -26,7 +26,7 @@ class BookViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - View Lifecycle
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         syncViewWithModel()
@@ -41,16 +41,21 @@ class BookViewController: UIViewController {
     
     
     // MARK: - Actions
-    @IBAction func ReadPDF(_ sender: Any) {
+    
+    @IBAction func readPDF(_ sender: Any) {
         
+        // Creamos pdf
+        let pVC = PdfViewController(model: model)
+        
+        // Hacemos push
+        navigationController?.pushViewController(pVC, animated: true)
     }
     
     
-    @IBAction func Favorites(_ sender: Any) {
+    @IBAction func favorites(_ sender: Any) {
         
     }
     
-
 
     /*
     // MARK: - Navigation
