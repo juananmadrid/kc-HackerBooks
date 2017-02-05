@@ -23,6 +23,8 @@
 		583C03181E4518A000E972A8 /* LibraryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 583C03161E4518A000E972A8 /* LibraryTableViewController.xib */; };
 		5840FBD01E439966003336E0 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5840FBCF1E439966003336E0 /* MultiDictionary.swift */; };
 		58892E901E42517600AE5C82 /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */; };
+		58DA82F21E47957400DAEA24 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DA82F01E47957400DAEA24 /* BookViewController.swift */; };
+		58DA82F31E47957400DAEA24 /* BookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58DA82F11E47957400DAEA24 /* BookViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		583C03161E4518A000E972A8 /* LibraryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryTableViewController.xib; sourceTree = "<group>"; };
 		5840FBCF1E439966003336E0 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 		58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
+		58DA82F01E47957400DAEA24 /* BookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		58DA82F11E47957400DAEA24 /* BookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,8 @@
 			children = (
 				583C03151E4518A000E972A8 /* LibraryTableViewController.swift */,
 				583C03161E4518A000E972A8 /* LibraryTableViewController.xib */,
+				58DA82F01E47957400DAEA24 /* BookViewController.swift */,
+				58DA82F11E47957400DAEA24 /* BookViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -209,6 +215,7 @@
 				583C03181E4518A000E972A8 /* LibraryTableViewController.xib in Resources */,
 				583386691E40E5A5004D2526 /* Assets.xcassets in Resources */,
 				583386671E40E5A5004D2526 /* Main.storyboard in Resources */,
+				58DA82F31E47957400DAEA24 /* BookViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +235,7 @@
 				583C03141E44824A00E972A8 /* Tag.swift in Sources */,
 				5840FBD01E439966003336E0 /* MultiDictionary.swift in Sources */,
 				583C03121E4481A200E972A8 /* Library.swift in Sources */,
+				58DA82F21E47957400DAEA24 /* BookViewController.swift in Sources */,
 				5833867B1E40F1B9004D2526 /* Book.swift in Sources */,
 				58207EF21E420D1C005E8B64 /* Errors.swift in Sources */,
 			);

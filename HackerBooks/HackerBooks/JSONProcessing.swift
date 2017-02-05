@@ -31,15 +31,15 @@ func decode(book json: JSONDictionary) throws -> Book{
     
     // Validamos el diccionario
     guard let urlString_image = json["image_url"] as? String,     // Convierto url en String comprobando error
-        let url_image = URL(string:urlString_image)              // Convierto string en url
-        // let image = UIImage(named: url_image.lastPathComponent)   // Capturo nombre del fichero imagen
+        let url_image = URL(string:urlString_image),              // Convierto string en url
+        let image = UIImage(named: url_image.lastPathComponent)   // Obtengo imagen
         else{
             throw LibraryError.wrongURLFormatForJSONResource
     }
     
     guard let urlString_pdf = json["pdf_url"] as? String,         // Convierto url en String comprobando error
-         let url_pdf = URL(string:urlString_pdf)                 // Convierto string en url
-         // let pdf:String = url_pdf.lastPathComponent               // Capturo nombre del pdf
+         let url_pdf = URL(string:urlString_pdf)                  // Convierto string en url
+         // let pdf:String = url_pdf.lastPathComponent            // Capturo nombre del pdf
          else{
             throw LibraryError.wrongURLFormatForJSONResource
     }
@@ -59,7 +59,7 @@ func decode(book json: JSONDictionary) throws -> Book{
         return Book(title: titulo!,
                     authors: autor!,
                     tags: arrayTag,
-                    photo_url: url_image,
+                    photo: image,
                     pdf_url: url_pdf)
         
     }else{

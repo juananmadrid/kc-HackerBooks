@@ -15,7 +15,7 @@ class Book {
     let titulo      :   String
     let autores     :   String
     let tags        :   [Tag]
-    let urlImage    :   URL
+    let image       :   UIImage
     let urlPdf      :   URL
     
     
@@ -24,20 +24,20 @@ class Book {
     init(title: String,
          authors: String,
          tags: [Tag],
-         photo_url: URL,
+         photo: UIImage,
          pdf_url: URL){
         
         titulo = title
         autores = authors
         self.tags = tags
-        urlImage = photo_url
+        image = photo
         urlPdf = pdf_url
         
     }
     
     // MARK: - Proxies
     func proxyForEquality() -> String{
-        return "\(titulo)\(autores)\(urlImage)\(urlPdf)"
+        return "\(titulo)\(autores)\(urlPdf)"
     }
     
     func proxyForComparison() -> String{

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookViewController" customModule="HackerBooks" customModuleProvider="target">
+            <connections>
+                <outlet property="PhotoView" destination="wG6-rt-xGd" id="spH-Q3-2Df"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ilb-8f-8Z4">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="wG6-rt-xGd" userLabel="photoView">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        </imageView>
+                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUR-kx-Mnh">
+                            <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                            <items>
+                                <barButtonItem title="Read" id="zbf-0E-V5i">
+                                    <connections>
+                                        <action selector="ReadPDF:" destination="-1" id="Th7-Ua-sst"/>
+                                    </connections>
+                                </barButtonItem>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="clf-4t-7Yo"/>
+                                <barButtonItem style="plain" id="J6h-kj-M7Y">
+                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YFS-rj-oZ7">
+                                        <rect key="frame" x="297" y="7" width="62" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Favorites"/>
+                                    </button>
+                                    <connections>
+                                        <action selector="Favorites:" destination="-1" id="Vqg-eQ-GSU"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Ilb-8f-8Z4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1eQ-dx-N0A"/>
+                <constraint firstItem="Ilb-8f-8Z4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8CO-hK-vqu"/>
+                <constraint firstAttribute="bottom" secondItem="Ilb-8f-8Z4" secondAttribute="bottom" id="K75-Ly-Jxj"/>
+                <constraint firstAttribute="trailing" secondItem="Ilb-8f-8Z4" secondAttribute="trailing" id="MGe-r3-fGa"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

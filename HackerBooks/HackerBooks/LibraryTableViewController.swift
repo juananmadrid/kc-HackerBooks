@@ -17,6 +17,8 @@ class LibraryTableViewController: UITableViewController {
     // MARK: - Properties
     let model : Library
     
+    weak var delegate : LibraryTableViewController? = nil
+    
     
     // MARK: - Inizialization
     init(model: Library){
@@ -27,6 +29,22 @@ class LibraryTableViewController: UITableViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Table View Delegate
+    
+    // Método al que se llama al seleccionar una celda
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Descrurimos el Tag
+        let tag = getNumberTag(forSection: indexPath.section)
+        
+        // Descubrimos el libro (book)
+        let book = model.book(forTagName: tag, at: indexPath.row)
+        
+        // Pusheamos
+        let bookVC = BookViewController(model: book!)
+        self.navigationController?.pushViewController(bookVC, animated: true)
     }
     
     
@@ -75,7 +93,7 @@ class LibraryTableViewController: UITableViewController {
         
 
         // Configurarla
-        cell?.imageView?.image        =   UIImage(named: (book?.urlImage.lastPathComponent)!)
+        cell?.imageView?.image        =   book?.image
         cell?.textLabel?.text         =   book?.titulo
         cell?.detailTextLabel?.text   =   book?.autores
         cell?.detailTextLabel?.text   =   tagArraytoString(fromArrayTags: (book?.tags)!)
@@ -105,6 +123,9 @@ class LibraryTableViewController: UITableViewController {
         }
         return array.joined(separator: ",")
     }
+    
+    
+    
     
     
     
