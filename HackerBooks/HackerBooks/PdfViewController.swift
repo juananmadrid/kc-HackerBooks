@@ -41,7 +41,10 @@ class PdfViewController: UIViewController {
     
     // MARK: Sync Model -> View
     func syncViewWithModel(){
-        let request = URLRequest(url: model.urlPdf)
+        
+        // let request = URLRequest(url: model.urlPdf)
+        let kronox = URL(fileURLWithPath: "https://en.wikipedia.org/wiki/Yoda")
+        let request = URLRequest(url: kronox)
         pdf.loadRequest(request)
     }
 
@@ -51,16 +54,14 @@ class PdfViewController: UIViewController {
 extension PdfViewController: UIWebViewDelegate {
     
     func webViewDidStartLoad(_ webView: UIWebView) {
-        // spiner aparece
+
         spinner.isHidden = false
-        // start animation
         spinner.startAnimating()
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        // spiner desaparece
+
         spinner.isHidden = true
-        // stop animation
         spinner.stopAnimating()
         
     }

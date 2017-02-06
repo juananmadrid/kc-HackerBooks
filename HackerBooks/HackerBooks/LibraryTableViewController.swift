@@ -95,8 +95,8 @@ class LibraryTableViewController: UITableViewController {
         // Configurarla
         cell?.imageView?.image        =   book?.image
         cell?.textLabel?.text         =   book?.titulo
-        cell?.detailTextLabel?.text   =   book?.autores
         cell?.detailTextLabel?.text   =   tagArraytoString(fromArrayTags: (book?.tags)!)
+        cell?.detailTextLabel?.text   =   book?.autores
         
         // Devolverla
         return cell!
