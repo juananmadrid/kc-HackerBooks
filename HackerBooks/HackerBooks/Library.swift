@@ -110,6 +110,7 @@ class Library{
                         }
                     }
                 }
+                arrayBooks.sort()                   /// Ordeno lista de Tags
                 return arrayBooks
                 
             }else{

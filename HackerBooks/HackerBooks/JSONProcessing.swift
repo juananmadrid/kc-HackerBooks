@@ -93,8 +93,8 @@ func convers(_ array: Array<String>) -> tagArray{
         let tag = Tag (tag: each)
         arrayTag.append(tag)
     }
-    arrayTag.sort()         // Ordenamos array de Tags
-    return arrayTag
+    
+        return arrayTag
 }
 
 

@@ -12,6 +12,7 @@ class PdfViewController: UIViewController {
 
     // MARK: - Properties
     @IBOutlet weak var pdf: UIWebView!
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var model: Book
@@ -26,7 +27,7 @@ class PdfViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+
     
     // MARK: - View Lifecycle
     override func viewWillAppear(_ animated: Bool) {
@@ -42,9 +43,7 @@ class PdfViewController: UIViewController {
     // MARK: Sync Model -> View
     func syncViewWithModel(){
         
-        // let request = URLRequest(url: model.urlPdf)
-        let kronox = URL(fileURLWithPath: "https://en.wikipedia.org/wiki/Yoda")
-        let request = URLRequest(url: kronox)
+        let request = URLRequest(url: model.urlPdf)
         pdf.loadRequest(request)
     }
 
@@ -63,6 +62,7 @@ extension PdfViewController: UIWebViewDelegate {
 
         spinner.isHidden = true
         spinner.stopAnimating()
+        print("carga de pdf terminada")
         
     }
 }

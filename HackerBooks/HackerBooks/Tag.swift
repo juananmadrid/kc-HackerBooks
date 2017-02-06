@@ -22,6 +22,7 @@ class Tag {
         isFavorite = false
     }
 
+    
     // MARK: - Proxies
     func proxyForEquality() -> String{
         return "\(isFavorite)\(name)"

@@ -110,7 +110,8 @@ class LibraryTableViewController: UITableViewController {
     // El número de cada tag será su número de posición en el array
     // Seccion x devuelvo Tag[x]
     func getNumberTag(forSection section: Int) -> String{
-
+        
+        model.tags.sort()
         return model.tags[section].name
     }
     
