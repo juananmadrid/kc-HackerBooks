@@ -30,20 +30,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Comprobamos si ficheros guardados comprobando flag
             let defaults = UserDefaults.standard
             let filesLoaded = defaults.bool(forKey: "filesLoaded")
-            
+            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
             // si json no guardado lo descargamos
             if (filesLoaded == false){
-                try downloadJSONFiles()
+            try downloadJSONFiles(fromPath: url)
             }
             
             // cargamos json
-            let json = try loadFromLocalFile(fileName: "books_readable")
+            let json = try loadFromLocalFile(fileName: "books_readable", fromPath: url)
             
             // Creamos array de clases tipo Book decodificando json
             var books = [Book]()
             for each in json{
                 do{
-                    let book = try decode(book: each)
+                    let book = try decode(book: each, fromPath: url)
                     books.append(book)
                 }catch{
                     print("Error al procesar \(each)")
@@ -111,6 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // Utils
 
+/*
 func downloadJSONFiles() throws {
     
     do{
@@ -121,9 +123,9 @@ func downloadJSONFiles() throws {
         guard let json = data else{
             throw LibraryError.resourcePointedByURLNotReachable
         }
-            
+        
         // Guardamos el json descargado en un archivo
-            
+        
         // Path de Documents
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         // url del fichero
@@ -138,14 +140,9 @@ func downloadJSONFiles() throws {
         defaults.set(flag, forKey: "filesLoaded")
         
         
-        }catch{
+    }catch{
         throw LibraryError.resourcePointedByURLNotReachable
-        }
+    }
 }
 
-
-func downloadPDFFile() throws {
-    
-}
-
-
+*/

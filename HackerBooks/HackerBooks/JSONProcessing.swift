@@ -27,15 +27,17 @@ typealias tagArray          =   [Tag]
 
 
 // MARK: - Decoder
-func decode(book json: JSONDictionary) throws -> Book{
+func decode(book json: JSONDictionary, fromPath path: URL) throws -> Book{
     
     // Validamos el diccionario
     guard let urlString_image = json["image_url"] as? String,     // Convierto url en String comprobando error
-        let url_image = URL(string:urlString_image),              // Convierto string en url
-        let image = UIImage(named: url_image.lastPathComponent)   // Obtengo imagen
+        let url_image = URL(string:urlString_image),            // Convierto string en url
+        let image = UIImage(named: url_image.lastPathComponent)
+        // let path_ = path.appendingPathComponent(imageName)
         else{
             throw LibraryError.wrongURLFormatForJSONResource
     }
+    
     
     guard let urlString_pdf = json["pdf_url"] as? String,         // Convierto url en String comprobando error
          let url_pdf = URL(string:urlString_pdf)                  // Convierto string en url
@@ -55,7 +57,8 @@ func decode(book json: JSONDictionary) throws -> Book{
     
         // Convierto array de String en array de Tag
         let arrayTag = convers(array)
-
+        
+        
         return Book(title: titulo!,
                     authors: autor!,
                     tags: arrayTag,
@@ -99,24 +102,61 @@ func convers(_ array: Array<String>) -> tagArray{
 // MARK: - Loading
 
 // Función que carga JSON e imagenes y devuelve un array de books
-func loadFromLocalFile(fileName name: String) throws -> JSONArray{
+func downloadJSONFiles(fromPath path: URL) throws {
     
-    let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-    let url = URL(fileURLWithPath: path)
-    
-    
-    if url == URL(fileURLWithPath: path),
-        let data = try? Data(contentsOf: url),                  // obtenemos datos
-        let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,
-        let jsonArray = maybeArray {                                // JSONSerialization convierte JSON en diccionario
+    do{
         
+        // No están los ficheros cargados, los descargamos y los guardamos
+        let url = URL(string: "https://t.co/K9ziV0z3SJ")
+        let data = try? Data(contentsOf: url!)
+        guard let json = data else{
+            throw LibraryError.resourcePointedByURLNotReachable
+        }
+        
+        // Guardamos el json descargado en un archivo
+        
+        // Path de Documents
+        // let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        // url del fichero
+        let url_file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
+        // Creamos fichero
+        let fileManager = FileManager.default
+        let created = fileManager.createFile(atPath: url_file.path, contents: json, attributes: nil)
+        print(created)
+        
+        // Creamos flag indicador para indicar fichero cargado
+        let flag: Bool = created
+        let defaults = UserDefaults.standard
+        defaults.set(flag, forKey: "filesLoaded")
+        
+        
+    }catch{
+        throw LibraryError.resourcePointedByURLNotReachable
+    }
+}
+
+
+func loadFromLocalFile(fileName name: String, fromPath path: URL) throws -> JSONArray{
+    
+    // let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+    // let url = URL(fileURLWithPath: path)
+    let pathDoc = path.absoluteString
+    let urljson = path.appendingPathComponent("books_readable.json")
+    // let url = URL(fileURLWithPath: pathDoc)
+    let url = URL(fileURLWithPath: pathDoc)
+    if let data = try? Data(contentsOf: urljson),           // obtenemos Json
+        let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,               // Convertimos en Array de Json
+        let jsonArray = maybeArray {
+
         // Descargamos y guardamos imágenes si no están cargadas
         
-        let defaults = UserDefaults.standard
-        let filesLoaded = defaults.bool(forKey: "filesLoaded")
-
-        if (filesLoaded == false){
-            for each in jsonArray{
+        // let defaults = UserDefaults.standard
+        // let filesLoaded = defaults.bool(forKey: "filesLoaded")
+            
+        // if (filesLoaded == false){
+/*            for each in jsonArray{
+                
+                let fileManager = FileManager.default
                 
                 guard let urlString_image = each["image_url"] as? String,
                     let url_image = URL(string:urlString_image),
@@ -124,13 +164,12 @@ func loadFromLocalFile(fileName name: String) throws -> JSONArray{
                     else{
                         throw LibraryError.wrongURLFormatForJSONResource
                 }
-                let fileManager = FileManager.default
-                fileManager.createFile(atPath: path, contents: data, attributes: nil)
+                
+                fileManager.createFile(atPath: pathDoc, contents: data, attributes: nil)
             }
+        // }
 
-        }
-
-        
+ */       
         return jsonArray
         
     }else{
