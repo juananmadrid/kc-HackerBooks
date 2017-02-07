@@ -34,9 +34,8 @@ class PdfViewController: UIViewController {
         super.viewDidLoad()
         syncViewWithModel()
         
-        pdf.delegate = self     // indicamos quien es el delegado
+        pdf.delegate = self     // indicamos quien es su delegado
     }
-
 
     
     
@@ -66,3 +65,7 @@ extension PdfViewController: UIWebViewDelegate {
         
     }
 }
+
+
+
+

@@ -35,15 +35,18 @@
                                         <action selector="readPDF:" destination="-1" id="HIR-f0-ijq"/>
                                     </connections>
                                 </barButtonItem>
-                                <barButtonItem style="plain" systemItem="flexibleSpace" id="clf-4t-7Yo"/>
-                                <barButtonItem style="plain" id="J6h-kj-M7Y">
-                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YFS-rj-oZ7">
-                                        <rect key="frame" x="297" y="7" width="62" height="30"/>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="S9M-cc-zXJ"/>
+                                <barButtonItem image="favorite_OFF.png" style="plain" id="zD9-kW-s45">
+                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DCr-2j-YVa">
+                                        <rect key="frame" x="317" y="2" width="42" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Favorites"/>
+                                        <state key="normal" title="Button" image="favorite_OFF.png"/>
+                                        <connections>
+                                            <action selector="favoriteButton:" destination="-1" eventType="touchUpInside" id="dpQ-Ac-Eel"/>
+                                        </connections>
                                     </button>
                                     <connections>
-                                        <action selector="favorites:" destination="-1" id="taO-NP-Qtv"/>
+                                        <action selector="favoritButt:" destination="-1" id="Uba-2X-Jgc"/>
                                     </connections>
                                 </barButtonItem>
                             </items>
@@ -58,6 +61,10 @@
                 <constraint firstAttribute="bottom" secondItem="Ilb-8f-8Z4" secondAttribute="bottom" id="K75-Ly-Jxj"/>
                 <constraint firstAttribute="trailing" secondItem="Ilb-8f-8Z4" secondAttribute="trailing" id="MGe-r3-fGa"/>
             </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="favorite_OFF.png" width="40" height="40"/>
+    </resources>
 </document>

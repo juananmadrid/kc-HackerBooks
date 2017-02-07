@@ -12,9 +12,17 @@ import Foundation
 
 class BookViewController: UIViewController {
 
+    //MARK: - Constants
+    static let notificationName = Notification.Name(rawValue: "CharacterDidChangeFavorite")
+    static let bookKey = "BookKey"
+    // static let favKey = "Favorite"
+
     // MARK: - Properties
     @IBOutlet weak var photoView: UIImageView!
     let model : Book
+    let favorite_on = UIImage(named: "favorite_ON")! as UIImage
+    let favorite_off = UIImage(named: "favorite_OFF")! as UIImage
+    var isFavorite = false
     
     // MARK: - Inizialization
     init(model: Book){
@@ -46,25 +54,47 @@ class BookViewController: UIViewController {
         
         // Creamos pdf
         let pVC = PdfViewController(model: model)
-        
         // Hacemos push
         navigationController?.pushViewController(pVC, animated: true)
-    }
-    
-    
-    @IBAction func favorites(_ sender: Any) {
         
     }
+
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func favoriteButton(_ sender: UIButton) {
+        
+        // Cambiamos flag e icono
+        // El Icono no cambia porque no sé como hacerlo
+        if self.model.isFavorite{
+            self.model.isFavorite = false
+        }else{
+            self.model.isFavorite = true
+        }
+        
+        /// mandamos una notificación
+        let bookModificated = self.model
+        notify(bookFavoriteChanged: bookModificated)
     }
-    */
-
 }
+
+// MARK: - Notificaciones
+
+// Notificación de pulsación de favoritos
+extension BookViewController{
+    
+    func notify(bookFavoriteChanged book: Book){
+        
+        let nc = NotificationCenter.default
+        
+        let notification = Notification(name: BookViewController.notificationName, object: self, userInfo: [BookViewController.bookKey : book])
+        
+        nc.post(notification)
+    }
+}
+
+
+
+
+
+
+
+

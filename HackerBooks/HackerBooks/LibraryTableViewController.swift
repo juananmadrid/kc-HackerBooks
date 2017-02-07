@@ -15,7 +15,7 @@ class LibraryTableViewController: UITableViewController {
     
     
     // MARK: - Properties
-    let model : Library
+    var model : Library
     
     weak var delegate : LibraryTableViewController? = nil
     
@@ -36,7 +36,7 @@ class LibraryTableViewController: UITableViewController {
     // Método al que se llama al seleccionar una celda
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Descrurimos el Tag
+        // Descubrimos el Tag
         let tag = getNumberTag(forSection: indexPath.section)
         
         // Descubrimos el libro (book)
@@ -111,7 +111,7 @@ class LibraryTableViewController: UITableViewController {
     // Seccion x devuelvo Tag[x]
     func getNumberTag(forSection section: Int) -> String{
         
-        model.tags.sort()
+        model.tags.sort()                               /// Ordenamos Tags
         return model.tags[section].name
     }
     
@@ -122,83 +122,89 @@ class LibraryTableViewController: UITableViewController {
         for elem in arraytags{
             array.append(elem.name)
         }
+        array.sort()
         return array.joined(separator: ",")
     }
     
-    
-    
-    
-    
-    
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        suscribe()                 // Nos suscribimos a la notificación
 
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        unsubscribe()
+        
     }
-    */
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
+//MARK: - Notifications
+ extension LibraryTableViewController{
+    
+    func suscribe(){
+        
+        let nc = NotificationCenter.default
+        
+        nc.addObserver(forName: BookViewController.notificationName, object: nil, queue: OperationQueue.main) { (note: Notification) in
+            
+            // extraemos libro a modificar y su estado de isFavorite
+            let userInfo = note.userInfo
+            let book = userInfo?[BookViewController.bookKey] as? Book
+            
+            // localizamos libro en array de libros
+            let index = self.model.books.index(of: book!)
+            let bookSelect = self.model.books[index!]
+            
+            // Añadimos a favoritos
+            if let newFavoritos = book?.isFavorite {
+                
+                // cambiamos flag en libro
+                bookSelect.isFavorite = true
+                
+                // Creamos nuevo Tag Favoritos
+                let favoritos = Tag(tag: "Favoritos")
+                favoritos.isFavorite = true
+                
+                // añadimos tag en array de TAg
+                self.model.tags.append(favoritos)
+                
+                // añadimos tag y libro a Multidictionary
+                self.model.mdict.insert(value: bookSelect.titulo, forKey: favoritos.name)
+                
+            // Eliminamos de favoritos
+            } else{
+                // cambiamos flag en libro
+                bookSelect.isFavorite = false
+                
+                // elimina tag en array de Tag
+                let favoritos = Tag(tag: "Favoritos")
+                let indexTag = self.model.tags.index(of: favoritos)
+                self.model.tags.remove(at: indexTag!)
+                
+                // Sacamos libro de Multidiccionario con Tag Favoritos
+                self.model.mdict.remove(value: bookSelect.titulo, fromKey: "Favoritos")
+                
+                // Si no hay más libros en Tag favotiros de Multidictionary el Tag
+                // Favoritos se elimina automáticamente
+                
+            }
+        }
+
     }
-    */
+    func unsubscribe(){
+
+        let nc = NotificationCenter.default
+        
+        nc.removeObserver(self)                 // Nos da de baja de TODAS las notificaciones (Observer yo mismo)
+        
+    }
+ 
     
 }
+
+

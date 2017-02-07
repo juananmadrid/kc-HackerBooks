@@ -134,7 +134,6 @@ func downloadJSONFiles() throws {
         // Creamos fichero
         let fileManager = FileManager.default
         let created = fileManager.createFile(atPath: url_file.path, contents: json, attributes: nil)
-        print(created)
         
         // Creamos flag indicador para indicar fichero cargado
         let defaults = UserDefaults.standard
@@ -160,28 +159,7 @@ func loadFromLocalFile(fileName name: String) throws -> JSONArray{
         let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,               // Convertimos en Array de Json
         let jsonArray = maybeArray {
 
-        // Descargamos y guardamos imágenes si no están cargadas
-        
-        // let defaults = UserDefaults.standard
-        // let filesLoaded = defaults.bool(forKey: "filesLoaded")
-            
-        // if (filesLoaded == false){
-/*            for each in jsonArray{
-                
-                let fileManager = FileManager.default
-                
-                guard let urlString_image = each["image_url"] as? String,
-                    let url_image = URL(string:urlString_image),
-                    let data = try? Data(contentsOf: url_image)
-                    else{
-                        throw LibraryError.wrongURLFormatForJSONResource
-                }
-                
-                fileManager.createFile(atPath: pathDoc, contents: data, attributes: nil)
-            }
-        // }
-
- */       
+      
         return jsonArray
         
     }else{

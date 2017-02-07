@@ -15,7 +15,7 @@ class Library{
     typealias BooksArray = [Book]
     
     // MARK: - Properties
-    var books 	: [Book]                // Array de libros
+    var books 	: [Book]               // Array de libros
     var tags    : [Tag]                // Array de Tags (sin repetir)
     var mdict   : MultiDictionary<String, String>
 
@@ -55,7 +55,8 @@ class Library{
     // Nº Total de LIBROS
     var booksCount: Int{
         get{
-            let count: Int = self.books.count
+            // let count: Int = self.books.count
+            let count: Int = self.mdict.countUnique
             return count
         }
     }
@@ -63,7 +64,8 @@ class Library{
     // Nº total de TAGS ó SECCIONES
     var tagCount: Int{
         get{
-            let countTag : Int = self.tags.count
+            // let countTag : Int = self.tags.count
+            let countTag: Int = self.mdict.countBuckets
             return countTag
         }
     }
@@ -110,7 +112,6 @@ class Library{
                         }
                     }
                 }
-                arrayBooks.sort()                   /// Ordeno lista de Tags
                 return arrayBooks
                 
             }else{
@@ -129,8 +130,8 @@ class Library{
         
         // Comprobamos que existe index
         if let index = at {
-                
-            let booksTag = books(forTagName: name)  // Objengo array de libros en ese Tag
+            // Obtenemos array de libros en ese Tag
+            let booksTag = books(forTagName: name)
             let book = booksTag?[index]
             return book
             
@@ -159,9 +160,11 @@ class Library{
             let countcub : Int = mdict.count
             return countcub
         }
+        
     }
-    
 }
+
+
 
 
 

@@ -17,6 +17,7 @@ class Book {
     let tags        :   [Tag]
     let image       :   UIImage
     let urlPdf      :   URL
+    var isFavorite  :   Bool = false
     
     
     // MARK: - Inizialization
