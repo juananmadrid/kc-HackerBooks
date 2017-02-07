@@ -20,6 +20,7 @@ class Tag {
         
         name = tag
         isFavorite = false
+        // Solo el Tag Favorite lo tendrá a True
     }
 
     

@@ -22,29 +22,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         // Creamos instancia del modelo
         
-        do{
         // Comprobamos si están los ficheros ya cargados de anteriormente. Dos opciones:
-            // 1. OK. Guardo flag en NSUserDefaults (mira online), que indica si es la primera vez que arrancamos
-            // 2. Comprobando la existencia del fichero en sí cuando arrancas
+        // Usando un flag (usada) o comprobando que fichero está
             
             // Comprobamos si ficheros guardados comprobando flag
             let defaults = UserDefaults.standard
-            let filesLoaded = defaults.bool(forKey: "filesLoaded")
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-
-            // si json no guardado lo descargamos
-            if (filesLoaded == false){
-            try downloadJSONFiles(fromPath: url)
-            }
-            
+            let flag = defaults.bool(forKey: "PDFDownloadedYet")
+        
+        
+            // comprobamos flag y si json descargado antes lo descargamos
+            // QUITAMOS PROVISIONALMENTE EL IF PORQUE NO FUNCIONA BIEN, 
+            // AL ARRANCAR DE NUEVO LA APP BORRA EL DIRECTORIO DOCUMENTS ANTERIOR
+            // DONDE GUARDAMOS EL PDF
+//            if flag != true {
+                do{
+                    try downloadJSONFiles()
+                }catch{
+                    print("Error al descargar pdf")
+                }
+//                }
+        
             // cargamos json
-            let json = try loadFromLocalFile(fileName: "books_readable", fromPath: url)
+        do{
+        
+            let json = try loadFromLocalFile(fileName: "books_readable")
             
             // Creamos array de clases tipo Book decodificando json
             var books = [Book]()
             for each in json{
                 do{
-                    let book = try decode(book: each, fromPath: url)
+                    let book = try decode(book: each)
                     books.append(book)
                 }catch{
                     print("Error al procesar \(each)")
