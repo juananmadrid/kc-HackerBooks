@@ -44,7 +44,6 @@ class Library{
                     bucket.insert(book.titulo)      // inserto titulo del libro
                     mdict[tag.name] = bucket        //
                 }
-            
         }
     }
 

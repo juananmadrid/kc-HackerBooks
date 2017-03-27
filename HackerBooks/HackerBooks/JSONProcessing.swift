@@ -29,23 +29,16 @@ typealias tagArray          =   [Tag]
 // MARK: - Decoder
 func decode(book json: JSONDictionary) throws -> Book{
 
-//    let defaults = UserDefaults.standard
-//    let pathPdf = defaults.string(forKey: "pathPdf")
-    
-//    let path = URL(fileURLWithPath: pathPdf!)
-
     // Validamos el diccionario
-    guard let urlString_image = json["image_url"] as? String,     // Convierto url en String comprobando error
-        let url_image = URL(string:urlString_image),            // Convierto string en url
-        let image = UIImage(named: url_image.lastPathComponent)
-        // let path_ = path.appendingPathComponent(imageName)
+    guard let urlString_image = json["image_url"] as? String,
+        let imageURL = URL(string: urlString_image)              // Capturo nombre de imagen
+        // let image = UIImage(named: url_image.lastPathComponent)
         else{
             throw LibraryError.wrongURLFormatForJSONResource
     }
     
-    
-    guard let urlString_pdf = json["pdf_url"] as? String,         // Convierto url en String comprobando error
-         let url_pdf = URL(string:urlString_pdf)                  // Convierto string en url
+    guard let urlString_pdf = json["pdf_url"] as? String,
+         let pdfURL = URL(string:urlString_pdf)
          // let pdf:String = url_pdf.lastPathComponent            // Capturo nombre del pdf
          else{
             throw LibraryError.wrongURLFormatForJSONResource
@@ -63,12 +56,19 @@ func decode(book json: JSONDictionary) throws -> Book{
         // Convierto array de String en array de Tag
         let arrayTag = convers(array)
         
+        // Imagen y pdf por defecto
+        let defaultImageURL = Bundle.main.url(forResource: "emptyBookCover", withExtension: "png")
+        let defaultPdfURL = Bundle.main.url(forResource: "emptyPdf", withExtension: "pdf")
+        
+        // Obtengo imagenes usando Async
+        let image = AsyncData(url: imageURL, defaultData: try Data(contentsOf: defaultImageURL!))
+        let pdf = AsyncData(url: pdfURL, defaultData: try Data(contentsOf: defaultPdfURL!))
         
         return Book(title: titulo!,
                     authors: autor!,
                     tags: arrayTag,
                     photo: image,
-                    pdf_url: url_pdf)
+                    pdf_url: pdf)
         
     }else{
         throw LibraryError.wrongJSONFormat
@@ -125,7 +125,6 @@ func downloadJSONFiles() throws {
         guard let json = data else{
             throw LibraryError.resourcePointedByURLNotReachable
         }
-        
         
         // Guardamos el json descargado en un archivo
 

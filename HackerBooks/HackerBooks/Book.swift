@@ -15,8 +15,8 @@ class Book {
     let titulo      :   String
     let autores     :   String
     let tags        :   [Tag]
-    let image       :   UIImage
-    let urlPdf      :   URL
+    let image       :   AsyncData
+    let urlPdf      :   AsyncData
     var isFavorite  :   Bool = false
     
     
@@ -25,8 +25,8 @@ class Book {
     init(title: String,
          authors: String,
          tags: [Tag],
-         photo: UIImage,
-         pdf_url: URL){
+         photo: AsyncData,
+         pdf_url: AsyncData){
         
         titulo = title
         autores = authors

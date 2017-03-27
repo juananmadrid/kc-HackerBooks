@@ -82,10 +82,9 @@ class  AsyncData {
                     self._hasExternalData = true
                 }
             }
-            
         }
-        
     }
+    
     private
     func saveToLocalStorage(){
         
@@ -97,9 +96,9 @@ class  AsyncData {
         }
         
     }
+    
     //MARK: - Utils
     class func sandboxSubfolderURL() -> URL{
-        
         
         let fm = FileManager.default
         let urls = fm.urls(for: .cachesDirectory, in: .userDomainMask)
@@ -107,7 +106,6 @@ class  AsyncData {
         guard let url = urls.last?.appendingPathComponent("\(type(of:self))") else {
             fatalError("Unable to create url for local storage at \(urls)")
         }
-        
         
         // If this folder doesn't exist, we'll create it
         if !fm.fileExists(atPath: url.path){
@@ -117,12 +115,9 @@ class  AsyncData {
                                        attributes: [:])
             }catch let error as NSError{
                 print(error)
-                
             }
         }
-        
         return url
-        
     }
     
     func localURL(forRemoteURL remoteURL: URL)  -> URL{
@@ -134,7 +129,6 @@ class  AsyncData {
         // That's what core data does, BTW.
         let fileName = String(remoteURL.hashValue)
         return AsyncData.sandboxSubfolderURL().appendingPathComponent(fileName)
-        
     }
     
     

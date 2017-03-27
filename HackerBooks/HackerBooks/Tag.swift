@@ -57,4 +57,9 @@ extension Tag: Comparable{
     }
 }
 
+extension Tag: Hashable{                    // Hash de Tag = hash de _name
+    public var hashValue: Int {
+        return name.hashValue
+    }
+}
 
