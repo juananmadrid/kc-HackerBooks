@@ -3,8 +3,9 @@ import UIKit
 class PdfViewController: UIViewController {
 
     // MARK: - Properties
-    @IBOutlet weak var pdf: UIImageView!            // UIWebView!
+    // @IBOutlet weak var pdf: UIImageView!            // UIWebView!
     
+    @IBOutlet weak var pdf: UIWebView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var model: Book
@@ -27,42 +28,40 @@ class PdfViewController: UIViewController {
         super.viewDidLoad()
         syncViewWithModel()
         
-        /// pdf.delegate = self     // indicamos quien es su delegado    ?????????????????
     }
 
+    
+    
+    /////    PENIENTE: NOTIFICACIÓN PARA LLAMAR A syncViewWithModel cdo cargue web  /////
     
     
     // MARK: Sync Model -> View
     func syncViewWithModel(){
         
-        let pdfImage = UIImage(data: model.image._data)
-        
-        pdf.image = pdfImage
-        title = model.titulo
-        
-        // let request = URLRequest(url: model.urlPdf)
-        // pdf.loadRequest(request)
+        pdf.load(model.pdf.data, mimeType: "application/pdf", textEncodingName: "utf8", baseURL: URL(string:"https://www.google.com")!)
     }
 
 }
 
+
+/// Quitamos spinner, en su lugar cargamos defaultImage mientras carga
 // MARK: - UIWebViewDelegate
-extension PdfViewController: UIWebViewDelegate {
-    
-    func webViewDidStartLoad(_ webView: UIWebView) {
-
-        spinner.isHidden = false
-        spinner.startAnimating()
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-
-        spinner.isHidden = true
-        spinner.stopAnimating()
-        print("carga de pdf terminada")
-        
-    }
-}
+//extension PdfViewController: UIWebViewDelegate {
+//    
+//    func webViewDidStartLoad(_ webView: UIWebView) {
+//
+//        spinner.isHidden = false
+//        spinner.startAnimating()
+//    }
+//    
+//    func webViewDidFinishLoad(_ webView: UIWebView) {
+//
+//        spinner.isHidden = true
+//        spinner.stopAnimating()
+//        print("carga de pdf terminada")
+//        
+//    }
+//}
 
 
 

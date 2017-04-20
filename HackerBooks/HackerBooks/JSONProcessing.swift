@@ -52,12 +52,12 @@ func decode(book json: JSONDictionary) throws -> Book{
         // Obtengo imagenes usando Async e imagenes por defecto 
         let image = AsyncData(url: imageURL, defaultData: try Data(contentsOf: defaultImageURL!))
         let pdf = AsyncData(url: pdfURL, defaultData: try Data(contentsOf: defaultPdfURL!))
-        
+
         return Book(title: titulo!,
                     authors: autor!,
                     tags: arrayTag,
                     photo: image,
-                    pdf_url: pdf)
+                    pdf: pdf)
         
     }else{
         throw LibraryError.wrongJSONFormat

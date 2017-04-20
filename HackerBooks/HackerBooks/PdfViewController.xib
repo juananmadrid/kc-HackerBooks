@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,8 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PdfViewController" customModule="HackerBooks" customModuleProvider="target">
             <connections>
-                <outlet property="pdf" destination="bLB-o6-q9u" id="AS5-wM-boH"/>
-                <outlet property="spinner" destination="R7l-T0-mcd" id="Jbf-1f-w7f"/>
+                <outlet property="pdf" destination="bLB-o6-q9u" id="wfr-lI-qZC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,27 +20,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bLB-o6-q9u">
+                <webView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="bLB-o6-q9u">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </webView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-T0-mcd">
-                    <rect key="frame" x="177" y="323" width="20" height="20"/>
-                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="bLB-o6-q9u" secondAttribute="trailing" id="8kL-d7-Sdx"/>
-                <constraint firstAttribute="bottom" secondItem="R7l-T0-mcd" secondAttribute="bottom" id="Ilx-Ki-WqY"/>
-                <constraint firstItem="R7l-T0-mcd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="KQo-KU-iLI"/>
                 <constraint firstAttribute="bottom" secondItem="bLB-o6-q9u" secondAttribute="bottom" id="KeK-tU-Wge"/>
-                <constraint firstItem="R7l-T0-mcd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PhG-SD-T5Z"/>
-                <constraint firstAttribute="bottom" secondItem="R7l-T0-mcd" secondAttribute="bottom" id="QHK-PO-TXh"/>
-                <constraint firstAttribute="trailing" secondItem="R7l-T0-mcd" secondAttribute="trailing" id="RWD-gJ-H5D"/>
-                <constraint firstItem="R7l-T0-mcd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bNe-de-xOY"/>
                 <constraint firstItem="bLB-o6-q9u" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hxO-oP-d4H"/>
-                <constraint firstAttribute="trailing" secondItem="R7l-T0-mcd" secondAttribute="trailing" id="iYA-F1-Xo3"/>
-                <constraint firstItem="R7l-T0-mcd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qQt-UW-0t5"/>
                 <constraint firstItem="bLB-o6-q9u" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vtI-aO-O3P"/>
             </constraints>
         </view>

@@ -8,7 +8,7 @@ class Book {
     let autores     :   String
     let tags        :   [Tag]       // Set<Tag>
     let image       :   AsyncData
-    let urlPdf      :   AsyncData
+    let pdf         :   AsyncData
     var isFavorite  :   Bool = false
     
     
@@ -18,19 +18,19 @@ class Book {
          authors: String,
          tags: [Tag],               // Set<Tag>
          photo: AsyncData,
-         pdf_url: AsyncData){
+         pdf: AsyncData){
         
         titulo = title
         autores = authors
         self.tags = tags
         image = photo
-        urlPdf = pdf_url
+        self.pdf = pdf
         
     }
     
     // MARK: - Proxies
     func proxyForEquality() -> String{
-        return "\(titulo)\(autores)\(urlPdf)"
+        return "\(titulo)\(autores)\(pdf)"
     }
     
     func proxyForComparison() -> String{
