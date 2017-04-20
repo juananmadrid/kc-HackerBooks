@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 31/1/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
@@ -13,53 +5,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Borramos cachés
+        AsyncData.removeAllLocalFiles()
+
         // Creamos una windows de verdad, no opcional
         window = UIWindow(frame: UIScreen.main.bounds)
     
-        // Creamos instancia del modelo
+
+        /// TRASLADAR A JSONProcessing como segundo decoder
+        /// Incluimos descarga de Json o lo usamos desde main local como profe? seguro que profe no lo descarga?
         
-        // Comprobamos si están los ficheros ya cargados de anteriormente. Dos opciones:
-        // Usando un flag (usada) o comprobando que fichero está
-            
-            // Comprobamos si ficheros guardados comprobando flag
-            let defaults = UserDefaults.standard
-            let flag = defaults.bool(forKey: "PDFDownloadedYet")
-        
-        
-            // comprobamos flag y si json descargado antes lo descargamos
-            // QUITAMOS PROVISIONALMENTE EL IF PORQUE NO FUNCIONA BIEN, 
-            // AL ARRANCAR DE NUEVO LA APP BORRA EL DIRECTORIO DOCUMENTS ANTERIOR
-            // DONDE GUARDAMOS EL PDF
-//            if flag != true {
-                do{
-                    try downloadJSONFiles()
-                }catch{
-                    print("Error al descargar pdf")
-                }
-//                }
         
             // cargamos json
         do{
         
-            let json = try loadFromLocalFile(fileName: "books_readable")
+            // Validamos url del json en local
+            guard let url = Bundle.main.url(forResource: "books_readable", withExtension: "json") else{
+                fatalError("Unable to read json file!")
+            }
+
+            let data = try Data(contentsOf: url)
+                let maybeArray = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? JSONArray               // Convertimos en Array de Json
             
             // Creamos array de clases tipo Book decodificando json
             var books = [Book]()
-            for each in json{
+            
+            guard let jsonArray = maybeArray else {
+                throw LibraryError.emptyJSONObject
+            }
+            
+            for book in jsonArray!{
                 do{
-                    let book = try decode(book: each)
+                    let book = try decode(book: book)
                     books.append(book)
                 }catch{
-                    print("Error al procesar \(each)")
+                    print("Error al procesar \(book)")
                 }
+                
                 books.sort()        // Ordenamos array de books
             }
             
-
             
             // Creamos el modelo
             let model = Library(bookArray: books)

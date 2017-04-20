@@ -1,11 +1,3 @@
-//
-//  LibraryTableViewController.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 3/2/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import UIKit
 import Foundation
 
@@ -93,7 +85,9 @@ class LibraryTableViewController: UITableViewController {
         
 
         // Configurarla
-        cell?.imageView?.image        =   book?.image
+        let image = UIImage(data: (book?.image._data)!)
+        
+        cell?.imageView?.image        =   image
         cell?.textLabel?.text         =   book?.titulo
         cell?.detailTextLabel?.text   =   tagArraytoString(fromArrayTags: (book?.tags)!)
         cell?.detailTextLabel?.text   =   book?.autores
@@ -167,7 +161,7 @@ class LibraryTableViewController: UITableViewController {
                 bookSelect.isFavorite = true
                 
                 // Creamos nuevo Tag Favoritos
-                let favoritos = Tag(tag: "Favoritos")
+                let favoritos = Tag(tagName: "Favoritos")
                 favoritos.isFavorite = true
                 
                 // añadimos tag en array de TAg
@@ -182,7 +176,7 @@ class LibraryTableViewController: UITableViewController {
                 bookSelect.isFavorite = false
                 
                 // elimina tag en array de Tag
-                let favoritos = Tag(tag: "Favoritos")
+                let favoritos = Tag(tagName: "Favoritos")
                 let indexTag = self.model.tags.index(of: favoritos)
                 self.model.tags.remove(at: indexTag!)
                 

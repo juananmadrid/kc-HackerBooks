@@ -1,17 +1,9 @@
-//
-//  PdfViewController.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 5/2/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import UIKit
 
 class PdfViewController: UIViewController {
 
     // MARK: - Properties
-    @IBOutlet weak var pdf: UIWebView!
+    @IBOutlet weak var pdf: UIImageView!            // UIWebView!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
@@ -31,10 +23,11 @@ class PdfViewController: UIViewController {
     
     // MARK: - View Lifecycle
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewDidLoad()
         syncViewWithModel()
         
-        pdf.delegate = self     // indicamos quien es su delegado
+        /// pdf.delegate = self     // indicamos quien es su delegado    ?????????????????
     }
 
     
@@ -42,8 +35,13 @@ class PdfViewController: UIViewController {
     // MARK: Sync Model -> View
     func syncViewWithModel(){
         
-        let request = URLRequest(url: model.urlPdf)
-        pdf.loadRequest(request)
+        let pdfImage = UIImage(data: model.image._data)
+        
+        pdf.image = pdfImage
+        title = model.titulo
+        
+        // let request = URLRequest(url: model.urlPdf)
+        // pdf.loadRequest(request)
     }
 
 }

@@ -1,11 +1,3 @@
-//
-//  JSONProcessing.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 1/2/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -31,19 +23,16 @@ func decode(book json: JSONDictionary) throws -> Book{
 
     // Validamos el diccionario
     guard let urlString_image = json["image_url"] as? String,
-        let imageURL = URL(string: urlString_image)              // Capturo nombre de imagen
-        // let image = UIImage(named: url_image.lastPathComponent)
+        let imageURL = URL(string: urlString_image)
         else{
             throw LibraryError.wrongURLFormatForJSONResource
     }
     
     guard let urlString_pdf = json["pdf_url"] as? String,
          let pdfURL = URL(string:urlString_pdf)
-         // let pdf:String = url_pdf.lastPathComponent            // Capturo nombre del pdf
          else{
             throw LibraryError.wrongURLFormatForJSONResource
     }
-    
     
     let autor 	= json["authors"] as? String
     let titulo  = json["title"] as? String
@@ -51,7 +40,7 @@ func decode(book json: JSONDictionary) throws -> Book{
     if let tags = json["tags"] as? String{
         
         // Convierto string de tags separados con comas en array de String
-        let array:Array = tags.components(separatedBy: ",")
+        let array: Array = tags.components(separatedBy: ",")
     
         // Convierto array de String en array de Tag
         let arrayTag = convers(array)
@@ -60,7 +49,7 @@ func decode(book json: JSONDictionary) throws -> Book{
         let defaultImageURL = Bundle.main.url(forResource: "emptyBookCover", withExtension: "png")
         let defaultPdfURL = Bundle.main.url(forResource: "emptyPdf", withExtension: "pdf")
         
-        // Obtengo imagenes usando Async
+        // Obtengo imagenes usando Async e imagenes por defecto 
         let image = AsyncData(url: imageURL, defaultData: try Data(contentsOf: defaultImageURL!))
         let pdf = AsyncData(url: pdfURL, defaultData: try Data(contentsOf: defaultPdfURL!))
         
@@ -95,10 +84,9 @@ func convers(_ array: Array<String>) -> tagArray{
     var arrayTag: tagArray = []
     
     for each in array{
-        let tag = Tag (tag: each)
+        let tag = Tag (tagName: each)
         arrayTag.append(tag)
     }
-    
         return arrayTag
 }
 
@@ -106,63 +94,64 @@ func convers(_ array: Array<String>) -> tagArray{
 
 // MARK: - Loading
 
+/// Ahora esto la descarga y decodificacion la hacemos directamente en AppDelegate
 // Función que carga JSON e imagenes y devuelve un array de books
-func downloadJSONFiles() throws {
-    
-    // Obtenemos path de Documents
-    let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    let pathString = path.absoluteString
-    
-    // Guardamos path obtenido en UserDefaults, aquí guardaremos pdf
-    let defaults = UserDefaults.standard
-    defaults.set(pathString, forKey: "pathPdf")
-    
-    do{
-        
-        // No están los ficheros cargados, los descargamos y los guardamos
-        let url = URL(string: "https://t.co/K9ziV0z3SJ")
-        let data = try? Data(contentsOf: url!)
-        guard let json = data else{
-            throw LibraryError.resourcePointedByURLNotReachable
-        }
-        
-        // Guardamos el json descargado en un archivo
+//func downloadJSONFiles() throws {
+//    
+//    // Obtenemos path de Documents
+//    let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//    let pathString = path.absoluteString
+//    
+//    // Guardamos path obtenido en UserDefaults, aquí guardaremos pdf
+//    let defaults = UserDefaults.standard
+//    defaults.set(pathString, forKey: "pathPdf")
+//    
+//    do{
+//        
+//        // No están los ficheros cargados, los descargamos y los guardamos
+//        let url = URL(string: "https://t.co/K9ziV0z3SJ")
+//        let data = try? Data(contentsOf: url!)
+//        guard let json = data else{
+//            throw LibraryError.resourcePointedByURLNotReachable
+//        }
+//        
+//        // Guardamos el json descargado en un archivo
+//
+//        // url del fichero
+//        let url_file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
+//        // Creamos fichero
+//        let fileManager = FileManager.default
+//        let created = fileManager.createFile(atPath: url_file.path, contents: json, attributes: nil)
+//        
+//        // Creamos flag indicador para indicar fichero cargado
+//        let defaults = UserDefaults.standard
+//        defaults.set(true, forKey: "PDFDownloadedYet")
+//        
+//    }catch{
+//        throw LibraryError.resourcePointedByURLNotReachable
+//    }
+//}
 
-        // url del fichero
-        let url_file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
-        // Creamos fichero
-        let fileManager = FileManager.default
-        let created = fileManager.createFile(atPath: url_file.path, contents: json, attributes: nil)
-        
-        // Creamos flag indicador para indicar fichero cargado
-        let defaults = UserDefaults.standard
-        defaults.set(true, forKey: "PDFDownloadedYet")
-        
-    }catch{
-        throw LibraryError.resourcePointedByURLNotReachable
-    }
-}
 
-
-func loadFromLocalFile(fileName name: String) throws -> JSONArray{
-    
-    let defaults = UserDefaults.standard
-    let pathPdf = defaults.string(forKey: "pathPdf")
-
-    // let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-    let path = URL(fileURLWithPath: pathPdf!)
-    // let pathDoc = path.absoluteString
-    let urljson = path.appendingPathComponent("books_readable.json")
-    // let url = URL(fileURLWithPath: pathDoc)
-    if let data = try? Data(contentsOf: urljson),           // obtenemos Json
-        let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,               // Convertimos en Array de Json
-        let jsonArray = maybeArray {
-
-      
-        return jsonArray
-        
-    }else{
-        throw LibraryError.jsonParsingError
-    }
-}
+//func loadFromLocalFile(fileName name: String) throws -> JSONArray{
+//    
+//    //let defaults = UserDefaults.standard
+//    // let pathPdf = defaults.string(forKey: "pathPdf")
+//
+//    // let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+//    let path = URL(fileURLWithPath: pathPdf!)
+//    // let pathDoc = path.absoluteString
+//    let urljson = path.appendingPathComponent("books_readable.json")
+//    // let url = URL(fileURLWithPath: pathDoc)
+//    if let data = try? Data(contentsOf: urljson),           // obtenemos Json
+//        let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,               // Convertimos en Array de Json
+//        let jsonArray = maybeArray {
+//
+//      
+//        return jsonArray
+//        
+//    }else{
+//        throw LibraryError.jsonParsingError
+//    }
+//}
 

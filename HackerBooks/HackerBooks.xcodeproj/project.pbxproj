@@ -23,6 +23,7 @@
 		5840FBD01E439966003336E0 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5840FBCF1E439966003336E0 /* MultiDictionary.swift */; };
 		584979781E4A295100C5896D /* favorite_OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = 584979761E4A295100C5896D /* favorite_OFF.png */; };
 		584979791E4A295100C5896D /* favorite_ON.png in Resources */ = {isa = PBXBuildFile; fileRef = 584979771E4A295100C5896D /* favorite_ON.png */; };
+		5853E16D1EA7DD7200CC5F5D /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = 5853E16C1EA7DD7200CC5F5D /* books_readable.json */; };
 		588710431E89759D0097266D /* emptyBookCover.png in Resources */ = {isa = PBXBuildFile; fileRef = 588710411E89759D0097266D /* emptyBookCover.png */; };
 		588710441E89759D0097266D /* emptyPdf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 588710421E89759D0097266D /* emptyPdf.pdf */; };
 		58892E901E42517600AE5C82 /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */; };
@@ -51,6 +52,7 @@
 		5840FBCF1E439966003336E0 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 		584979761E4A295100C5896D /* favorite_OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_OFF.png; sourceTree = "<group>"; };
 		584979771E4A295100C5896D /* favorite_ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_ON.png; sourceTree = "<group>"; };
+		5853E16C1EA7DD7200CC5F5D /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
 		588710411E89759D0097266D /* emptyBookCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyBookCover.png; sourceTree = "<group>"; };
 		588710421E89759D0097266D /* emptyPdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = emptyPdf.pdf; sourceTree = "<group>"; };
 		58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				588710411E89759D0097266D /* emptyBookCover.png */,
 				588710421E89759D0097266D /* emptyPdf.pdf */,
+				5853E16C1EA7DD7200CC5F5D /* books_readable.json */,
 				584979761E4A295100C5896D /* favorite_OFF.png */,
 				584979771E4A295100C5896D /* favorite_ON.png */,
 			);
@@ -217,6 +220,7 @@
 				58DA82F71E47ADC300DAEA24 /* PdfViewController.xib in Resources */,
 				588710441E89759D0097266D /* emptyPdf.pdf in Resources */,
 				583386691E40E5A5004D2526 /* Assets.xcassets in Resources */,
+				5853E16D1EA7DD7200CC5F5D /* books_readable.json in Resources */,
 				583386671E40E5A5004D2526 /* Main.storyboard in Resources */,
 				58DA82F31E47957400DAEA24 /* BookViewController.xib in Resources */,
 			);

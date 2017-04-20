@@ -1,11 +1,3 @@
-//
-//  Tag.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 3/2/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import Foundation
 
 class Tag {
@@ -16,9 +8,9 @@ class Tag {
     var isFavorite: Bool
 
     // MARK: - Initialization
-    init(tag: String){
+    init(tagName: String){
         
-        name = tag
+        name = tagName
         isFavorite = false
         // Solo el Tag Favorite lo tendrá a True
     }
@@ -34,8 +26,6 @@ class Tag {
     }
 
 }
-
-
 
 
 

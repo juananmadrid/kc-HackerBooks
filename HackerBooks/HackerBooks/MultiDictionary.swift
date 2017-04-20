@@ -1,11 +1,3 @@
-//
-//  MultiDictionary.swift
-//  HackerBooksLite
-//
-//  Created by Fernando Rodríguez Romero on 7/28/16.
-//  Copyright © 2016 KeepCoding. All rights reserved.
-//
-
 import Foundation
 
 //A [Multimap](https://en.wikipedia.org/wiki/Multimap) implementation for Swift.

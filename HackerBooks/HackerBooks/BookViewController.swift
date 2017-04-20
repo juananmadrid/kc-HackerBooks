@@ -1,11 +1,3 @@
-//
-//  BookViewController.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 4/2/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import UIKit
 import Foundation
 
@@ -43,7 +35,9 @@ class BookViewController: UIViewController {
     
     // MARK: - Sync Model -> View
     func syncViewWithModel(){
-        photoView.image = model.image
+
+        let image = UIImage(data: model.image._data)
+        photoView.image = image
         title = model.titulo
     }
     

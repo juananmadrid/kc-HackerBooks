@@ -1,11 +1,3 @@
-//
-//  Book.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 31/1/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -14,7 +6,7 @@ class Book {
     // MARK: - Stored Properties
     let titulo      :   String
     let autores     :   String
-    let tags        :   [Tag]
+    let tags        :   [Tag]       // Set<Tag>
     let image       :   AsyncData
     let urlPdf      :   AsyncData
     var isFavorite  :   Bool = false
@@ -24,7 +16,7 @@ class Book {
     
     init(title: String,
          authors: String,
-         tags: [Tag],
+         tags: [Tag],               // Set<Tag>
          photo: AsyncData,
          pdf_url: AsyncData){
         

@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 31/1/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
