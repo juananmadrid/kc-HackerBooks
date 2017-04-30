@@ -67,5 +67,18 @@ extension Book : CustomStringConvertible{
     }
 }
 
+extension Book: Hashable{
+    
+    var proxyForHashing : String{
+        get{
+            return "\(titulo)\(autores)"
+        }
+    }
+    var hashValue: Int {
+        return proxyForHashing.hashValue
+    }
+}
+
+
 
 

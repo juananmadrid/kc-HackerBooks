@@ -33,7 +33,6 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
     
     public
     var isEmpty: Bool {                 /// _dict VACÍO? (para compr. nil)
-        
         return _dict.isEmpty
     }
     
@@ -43,7 +42,7 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
     }
     
     public
-    var countUnique : Int {             /// TOTAL CUBOS = TOTAL LIBROS (sin repetir)
+    var countUnique : Int {             /// TOTAL CUBOS = TOTAL LIBROS (sin repetir) POR TAG
         var tally = Bucket()
         
         for bucket in _dict.values{
@@ -85,7 +84,7 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
     // if any.
     public
     subscript(key: Key) ->Bucket?{
-        get{                            /// NOS DA LOS CUBOS DE CADA TAG O SECCIÓN
+        get{                                    /// BUCKETS POR TAG O SECCIÓN
             return _dict[key]
         }
         

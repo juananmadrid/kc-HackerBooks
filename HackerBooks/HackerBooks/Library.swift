@@ -1,42 +1,56 @@
 import Foundation
-import UIKit
 
 class Library{
     
     // MARK: Utility types
     typealias BooksArray = [Book]
+    typealias Multidictionary = MultiDictionary<Tag, Book>
     
     // MARK: - Properties
-    var books 	: [Book]               // Array de libros
-    var tags    : [Tag]                // Array de Tags (sin repetir)
-    var mdict   : MultiDictionary<String, String>
+//    var books 	: [Book]               // Array de libros
+//    var tags    : Set<Tag>
+    var mdict   : Multidictionary
 
     
     // MARK: - Initialization
-    init(bookArray array: BooksArray){
+    init(bookArray : BooksArray){
         
-        books 	= 	[]
-        tags    = 	[]
-        mdict 	= 	MultiDictionary<String, String>()
-
+//        books 	= 	[]
+//        tags    = 	[]
+        mdict 	= 	Multidictionary()
+        
+        bookLoad(array: bookArray)
+        
+    }
+    
+    // Carga multidiccionario desde [Book]
+    private
+    func bookLoad(array: [Book]) {
+        
         for book in array{
-            
-            // Asigno a books
-            books.append(book)
-            
-            // Asigno a tags
-            for element in book.tags{
-                tags.append(element)
+            for tag in book.tags{
+                mdict.insert(value: book, forKey: tag)
             }
-            
-            // Asigno a mdict
-                for tag in book.tags{
-                    
-                    var bucket = Set<String>()      // creo set vacío
-                    bucket.insert(book.titulo)      // inserto titulo del libro
-                    mdict[tag.name] = bucket        //
-                }
         }
+        
+//        for book in array{
+//            
+//            // Asigno a books
+//            books.append(book)
+//            
+//            // Asigno a tags
+//            for element in book.tags{
+//                tags.insert(element)
+//            }
+//            
+//            // Asigno a mdict
+//            for tag in book.tags{
+//                
+//                var bucket = Set<String>()      // creo set vacío
+//                bucket.insert(book.titulo)      // inserto titulo del libro
+//                mdict[tag.name] = bucket        //
+//            }
+//        }
     }
 
     
@@ -61,56 +75,31 @@ class Library{
         }
     }
     
-    
-    // Cantidad de libros por tag. Si no existe el tag devolvemos 0
+    // Nº total de libros por tag. Si no existe el tag devolvemos 0
     func bookCount(forTagName name: String) -> Int{
 
-        // si existe esa clave
-        if mdict[name] != nil {
-             return mdict[name]!.count
-        }else{
+        let tag = Tag(tagName: name)
+        
+        if let bucket = mdict[tag] {
+            return bucket.count
+        } else {
             return 0
         }
-
     }
     
-    
     // Array de libros (instancias de Book) que hay por Tag.
-    // Un libro puede estar en varios Tags. Si no hay libros en un Tag devolvemos nil
+    // Si no hay libros en un Tag devolvemos nil (opcional vacío)
     func books(forTagName name: String) -> [Book]?{
         
-        // comprobamos que existe tag
-        if mdict[name] != nil {
-
-            // comprobamos que no está vació el tag
-            if mdict[name]?.count != nil{
-                
-                // convertimos lista en array y ordenamos
-                var arrayNames : [String] = []       // Creo array vació de nombres de libros
-                var arrayBooks : [Book] = []         // Creo array vacío de libros
-                
-                for element in mdict[name]! {
-                    arrayNames.append(element)
-                }
-                arrayNames.sort()                    /// Ordeno lista de libros
-                
-                // convierto array de nombres de libros en array de libros
-                for each in books{
-                    // var book = books[each]
-                    for name in arrayNames{
-                        if each.titulo == name{
-                            arrayBooks.append(each)
-                        }
-                    }
-                }
-                return arrayBooks
-                
-            }else{
-                return nil
-            }
-        }else{
+        let tag = Tag(tagName: name)
+        
+        guard let books = mdict[tag] else {
             return nil
         }
+        if books.count == 0 {
+            return nil
+        }
+        return books.sorted()
     }
     
     
@@ -151,8 +140,19 @@ class Library{
             let countcub : Int = mdict.count
             return countcub
         }
-        
     }
+    
+    
+    // Array de Tag ordenado extraído del Multidiccionario _books
+    var array : [Tag]{
+        get{
+            return mdict.keys.sorted()
+        }
+    }
+    
+    
+    
+    
 }
 
 

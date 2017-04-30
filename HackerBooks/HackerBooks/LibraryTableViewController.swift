@@ -58,7 +58,7 @@ class LibraryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView,
                             titleForFooterInSection section: Int) -> String? {
         
-        return model.tags[section].name
+        return model[tag]
     }
     
     override func tableView(_ tableView: UITableView,
