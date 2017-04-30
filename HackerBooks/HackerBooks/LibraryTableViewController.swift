@@ -27,12 +27,13 @@ class LibraryTableViewController: UITableViewController {
     
     // Método al que se llama al seleccionar una celda
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+                                            // indexPath tiene 2 secciones: Section y Row
         
-        // Descubrimos el Tag
-        let tag = getNumberTag(forSection: indexPath.section)
+        // Descubrimos cual es el Tag seleccionado
+        let tag = model.tagsArray[indexPath.section]
         
-        // Descubrimos el libro (book)
-        let book = model.book(forTagName: tag, at: indexPath.row)
+        // Descubrimos el libro seleccionado
+        let book = model.book(forTagName: tag.name, at: indexPath.row)
         
         // Pusheamos
         let bookVC = BookViewController(model: book!)
@@ -40,25 +41,26 @@ class LibraryTableViewController: UITableViewController {
     }
     
     
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return model.tagCount
-        
+
+        return model.tagsArray.count
     }
     
-    override func tableView(_ tableView: UITableView,
-                            numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return model.bookCount(forTagName: getNumberTag(forSection: section))
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // Obtenemos tag seleccionado
+        let tagName  = model.tagsArray[section].name
+        
+        // Obtenemos nº book en ese tag
+        return model.bookCount(forTagName: tagName)
     }
     
     override func tableView(_ tableView: UITableView,
                             titleForFooterInSection section: Int) -> String? {
         
-        return model[tag]
+        return model.tagsArray[section].name
     }
     
     override func tableView(_ tableView: UITableView,
@@ -69,12 +71,12 @@ class LibraryTableViewController: UITableViewController {
         let cellId = "BookCell"
         
         // Averiguar el Tag
-        let tag = getNumberTag(forSection: indexPath.section)
+        let tag = model.tagsArray[indexPath.section]
         
         // Averiguar el libro
-        let book = model.book(forTagName: tag, at: indexPath.row)
+        let book = model.book(forTagName: tag.name, at: indexPath.row)
 
-        // Crear la celda
+        // Creamos la celda
         var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
         
         if cell == nil{
@@ -83,8 +85,7 @@ class LibraryTableViewController: UITableViewController {
                                    reuseIdentifier: cellId)
         }
         
-
-        // Configurarla
+        // Configuramos celda
         let image = UIImage(data: (book?.image._data)!)
         
         cell?.imageView?.image        =   image
@@ -99,15 +100,6 @@ class LibraryTableViewController: UITableViewController {
     
     
     // MARK: - Utils
-    
-    // Función para obtener sección partiendo de nº sección
-    // El número de cada tag será su número de posición en el array
-    // Seccion x devuelvo Tag[x]
-    func getNumberTag(forSection section: Int) -> String{
-        
-        model.tags.sort()                               /// Ordenamos Tags
-        return model.tags[section].name
-    }
     
     // Función para convetir array de Tag en string
     func tagArraytoString(fromArrayTags arraytags: [Tag]) -> String{
@@ -124,7 +116,7 @@ class LibraryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        suscribe()                 // Nos suscribimos a la notificación
+        // suscribe()                 // Nos suscribimos a la notificación
 
     }
 
@@ -140,56 +132,59 @@ class LibraryTableViewController: UITableViewController {
 //MARK: - Notifications
  extension LibraryTableViewController{
     
-    func suscribe(){
-        
-        let nc = NotificationCenter.default
-        
-        nc.addObserver(forName: BookViewController.notificationName, object: nil, queue: OperationQueue.main) { (note: Notification) in
-            
-            // extraemos libro a modificar y su estado de isFavorite
-            let userInfo = note.userInfo
-            let book = userInfo?[BookViewController.bookKey] as? Book
-            
-            // localizamos libro en array de libros
-            let index = self.model.books.index(of: book!)
-            let bookSelect = self.model.books[index!]
-            
-            // Añadimos a favoritos
-            if let newFavoritos = book?.isFavorite {
-                
-                // cambiamos flag en libro
-                bookSelect.isFavorite = true
-                
-                // Creamos nuevo Tag Favoritos
-                let favoritos = Tag(tagName: "Favoritos")
-                favoritos.isFavorite = true
-                
-                // añadimos tag en array de TAg
-                self.model.tags.append(favoritos)
-                
-                // añadimos tag y libro a Multidictionary
-                self.model.mdict.insert(value: bookSelect.titulo, forKey: favoritos.name)
-                
-            // Eliminamos de favoritos
-            } else{
-                // cambiamos flag en libro
-                bookSelect.isFavorite = false
-                
-                // elimina tag en array de Tag
-                let favoritos = Tag(tagName: "Favoritos")
-                let indexTag = self.model.tags.index(of: favoritos)
-                self.model.tags.remove(at: indexTag!)
-                
-                // Sacamos libro de Multidiccionario con Tag Favoritos
-                self.model.mdict.remove(value: bookSelect.titulo, fromKey: "Favoritos")
-                
-                // Si no hay más libros en Tag favotiros de Multidictionary el Tag
-                // Favoritos se elimina automáticamente
-                
-            }
-        }
-
-    }
+    
+//    func suscribe(){
+//        
+//        let nc = NotificationCenter.default
+//        
+//        nc.addObserver(forName: BookViewController.notificationName, object: nil, queue: OperationQueue.main) { (note: Notification) in
+//            
+//            // extraemos libro a modificar y su estado de isFavorite
+//            let userInfo = note.userInfo
+//            let book = userInfo?[BookViewController.bookKey] as? Book
+//            
+//            // localizamos libro en array de libros
+//            let index = self.model.books.index(of: book!)
+//            let bookSelect = self.model.books[index!]
+//            
+//            // Añadimos a favoritos
+//            if let newFavoritos = book?.isFavorite {
+//                
+//                // cambiamos flag en libro
+//                bookSelect.isFavorite = true
+//                
+//                // Creamos nuevo Tag Favoritos
+//                let favoritos = Tag(tagName: "Favoritos")
+//                favoritos.isFavorite = true
+//                
+//                // añadimos tag en array de TAg
+//                self.model.tags.append(favoritos)
+//                
+//                // añadimos tag y libro a Multidictionary
+//                self.model.mdict.insert(value: bookSelect.titulo, forKey: favoritos.name)
+//                
+//            // Eliminamos de favoritos
+//            } else{
+//                // cambiamos flag en libro
+//                bookSelect.isFavorite = false
+//                
+//                // elimina tag en array de Tag
+//                let favoritos = Tag(tagName: "Favoritos")
+//                let indexTag = self.model.tags.index(of: favoritos)
+//                self.model.tags.remove(at: indexTag!)
+//                
+//                // Sacamos libro de Multidiccionario con Tag Favoritos
+//                self.model.mdict.remove(value: bookSelect.titulo, fromKey: "Favoritos")
+//                
+//                // Si no hay más libros en Tag favotiros de Multidictionary el Tag
+//                // Favoritos se elimina automáticamente
+//                
+//            }
+//        }
+//
+//    }
+    
+    
     func unsubscribe(){
 
         let nc = NotificationCenter.default

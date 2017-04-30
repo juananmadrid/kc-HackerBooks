@@ -101,7 +101,13 @@ class Library{
         }
         return books.sorted()
     }
-    
+
+    // Array de Tag ordenado extraído del Multidiccionario _books
+    var tagsArray : [Tag]{
+        get{
+            return mdict.keys.sorted()
+        }
+    }
     
     // AGTBook para el libro que está en la posición index de aquellos bajo un cierto tag
     // Devuelve libro que está en posición index
@@ -142,13 +148,7 @@ class Library{
         }
     }
     
-    
-    // Array de Tag ordenado extraído del Multidiccionario _books
-    var array : [Tag]{
-        get{
-            return mdict.keys.sorted()
-        }
-    }
+
     
     
     
