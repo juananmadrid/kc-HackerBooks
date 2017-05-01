@@ -16,7 +16,7 @@ class LibraryTableViewController: UITableViewController {
     init(model: Library){
         self.model = model
         super.init(nibName: nil, bundle: nil)
-        
+        title = "HackerBooks"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,6 +24,40 @@ class LibraryTableViewController: UITableViewController {
     }
     
     // MARK: - Table View Delegate
+    
+    // Creación de la table
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // indexPath tiene 2 secciones: Section y Row
+        
+        // Definir un Id para el tipo de celda (para pedir celda reutilizada)
+        let cellId = "BookCell"
+        
+        // Averiguar el Tag
+        let tag = model.tagsArray[indexPath.section]
+        
+        // Averiguar el libro
+        let book = model.book(forTagName: tag.name, at: indexPath.row)
+        
+        // Creamos la celda
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
+        
+        if cell == nil{
+            // Creamos nueva celda
+            cell = UITableViewCell(style: .subtitle,
+                                   reuseIdentifier: cellId)
+        }
+        
+        // Configuramos celda
+        let image = UIImage(data: (book?.image._data)!)
+        
+        cell?.imageView?.image        =   image
+        cell?.textLabel?.text         =   book?.titulo
+        cell?.detailTextLabel?.text   =   tagArraytoString(fromArrayTags: (book?.tags)!)
+        cell?.detailTextLabel?.text   =   book?.autores
+        
+        // Devolverla
+        return cell!
+    }
     
     // Método al que se llama al seleccionar una celda
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -57,44 +91,9 @@ class LibraryTableViewController: UITableViewController {
         return model.bookCount(forTagName: tagName)
     }
     
-    override func tableView(_ tableView: UITableView,
-                            titleForFooterInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         
         return model.tagsArray[section].name
-    }
-    
-    override func tableView(_ tableView: UITableView,
-                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                            // indexPath tiene 2 secciones: Section y Row
-        
-        // Definir un Id para el tipo de celda (para pedir celda reutilizada)
-        let cellId = "BookCell"
-        
-        // Averiguar el Tag
-        let tag = model.tagsArray[indexPath.section]
-        
-        // Averiguar el libro
-        let book = model.book(forTagName: tag.name, at: indexPath.row)
-
-        // Creamos la celda
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
-        
-        if cell == nil{
-            // Creamos nueva celda
-            cell = UITableViewCell(style: .subtitle,
-                                   reuseIdentifier: cellId)
-        }
-        
-        // Configuramos celda
-        let image = UIImage(data: (book?.image._data)!)
-        
-        cell?.imageView?.image        =   image
-        cell?.textLabel?.text         =   book?.titulo
-        cell?.detailTextLabel?.text   =   tagArraytoString(fromArrayTags: (book?.tags)!)
-        cell?.detailTextLabel?.text   =   book?.autores
-        
-        // Devolverla
-        return cell!
     }
     
     
@@ -109,7 +108,7 @@ class LibraryTableViewController: UITableViewController {
             array.append(elem.name)
         }
         array.sort()
-        return array.joined(separator: ",")
+        return array.joined(separator: ", ")
     }
     
   
@@ -122,7 +121,7 @@ class LibraryTableViewController: UITableViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         
-        unsubscribe()
+        // unsubscribe()
         
     }
 

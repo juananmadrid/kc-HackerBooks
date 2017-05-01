@@ -26,9 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let url = Bundle.main.url(forResource: "books_readable", withExtension: "json") else{
                 fatalError("Unable to read json file!")
             }
-
+            
+            // Decodificamos json y obtenemos array de diccionarios
             let data = try Data(contentsOf: url)
-                let maybeArray = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? JSONArray               // Convertimos en Array de Json
+            let maybeArray = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? JSONArray
             
             // Creamos array de clases tipo Book decodificando json
             var books = [Book]()
@@ -37,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 throw LibraryError.emptyJSONObject
             }
             
+            // Convermtimos array de diccionarios en array de libros
             for book in jsonArray!{
                 do{
                     let book = try decode(book: book)

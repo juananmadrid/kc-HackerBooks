@@ -10,7 +10,7 @@ class Tag {
     // MARK: - Initialization
     init(tagName: String){
         
-        name = tagName
+        name = tagName.capitalized
         isFavorite = false
         // Solo el Tag Favorite lo tendrá a True
     }
@@ -18,7 +18,7 @@ class Tag {
     
     // MARK: - Proxies
     func proxyForEquality() -> String{
-        return "\(isFavorite)\(name)"
+        return "\(name)"
     }
     
     func proxyForComparison() -> String{

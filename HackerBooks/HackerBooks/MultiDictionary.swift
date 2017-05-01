@@ -104,7 +104,6 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
             _dict[key] = previous.union(newBucket)
         }
     }
-
     
     // Hay que insertar valores en nuestro diccionario. Con el set normal no se puede
     // Con esta clave coge este libro
