@@ -13,7 +13,7 @@ class LibraryTableViewController: UITableViewController {
     
     
     // MARK: - Inizialization
-    init(model: Library){
+    init(model: Library, style: UITableViewStyle = .plain){
         self.model = model
         super.init(nibName: nil, bundle: nil)
         title = "HackerBooks"
@@ -22,6 +22,20 @@ class LibraryTableViewController: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        registerNib()       // Cell personalized registration
+    }
+
+    //MARK: - Cell personalized registration
+    private func registerNib(){
+        
+        let nib = UINib(nibName: "BooksTableViewCell", bundle: Bundle.main)
+        tableView.register(nib, forCellReuseIdentifier: BooksTableViewCell.cellID)
+    }
+
     
     // MARK: - Table View Delegate
     
@@ -39,25 +53,33 @@ class LibraryTableViewController: UITableViewController {
         let book = model.book(forTagName: tag.name, at: indexPath.row)
         
         // Creamos la celda
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
+        var cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.cellID, for: indexPath) as! BooksTableViewCell
+        // var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
         
-        if cell == nil{
-            // Creamos nueva celda
-            cell = UITableViewCell(style: .subtitle,
-                                   reuseIdentifier: cellId)
-        }
+//        if cell == nil{
+//            // Creamos nueva celda
+//            cell = UITableViewCell(style: .subtitle,
+//                                   reuseIdentifier: cellId)
+//        }
         
         // Configuramos celda
-        let image = UIImage(data: (book?.image._data)!)
+//        let image = UIImage(data: (book?.image._data)!)
+//        cell?.imageView?.image        =   image
+//        cell?.textLabel?.text         =   book?.titulo
+//        cell?.detailTextLabel?.text   =   tagArraytoString(fromArrayTags: (book?.tags)!)
+//        cell?.detailTextLabel?.text   =   book?.autores
         
-        cell?.imageView?.image        =   image
-        cell?.textLabel?.text         =   book?.titulo
-        cell?.detailTextLabel?.text   =   tagArraytoString(fromArrayTags: (book?.tags)!)
-        cell?.detailTextLabel?.text   =   book?.autores
-        
+        // Sync model (book) -> View (cell)
+        cell.syncWithBook(book: book!)
         // Devolverla
-        return cell!
+        return cell
     }
+    
+    // Definimos altura de la celda
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return BooksTableViewCell.cellHeight
+    }
+
     
     // Método al que se llama al seleccionar una celda
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -112,12 +134,12 @@ class LibraryTableViewController: UITableViewController {
     }
     
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // suscribe()                 // Nos suscribimos a la notificación
-
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        // suscribe()                 // Nos suscribimos a la notificación
+//
+//    }
 
     override func viewWillDisappear(_ animated: Bool) {
         

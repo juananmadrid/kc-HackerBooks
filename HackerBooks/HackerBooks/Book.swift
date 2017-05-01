@@ -37,6 +37,10 @@ class Book {
         return proxyForEquality()
     }
     
+    func tagList () -> String {
+        return tags.sorted().map{$0.name}.joined(separator: ", ").capitalized
+    }
+
 }
 
 

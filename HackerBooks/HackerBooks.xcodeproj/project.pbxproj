@@ -23,6 +23,8 @@
 		5840FBD01E439966003336E0 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5840FBCF1E439966003336E0 /* MultiDictionary.swift */; };
 		584979781E4A295100C5896D /* favorite_OFF.png in Resources */ = {isa = PBXBuildFile; fileRef = 584979761E4A295100C5896D /* favorite_OFF.png */; };
 		584979791E4A295100C5896D /* favorite_ON.png in Resources */ = {isa = PBXBuildFile; fileRef = 584979771E4A295100C5896D /* favorite_ON.png */; };
+		584D3D971EB758E10058E8FD /* BooksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584D3D951EB758E10058E8FD /* BooksTableViewCell.swift */; };
+		584D3D981EB758E10058E8FD /* BooksTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 584D3D961EB758E10058E8FD /* BooksTableViewCell.xib */; };
 		5853E16D1EA7DD7200CC5F5D /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = 5853E16C1EA7DD7200CC5F5D /* books_readable.json */; };
 		588710431E89759D0097266D /* emptyBookCover.png in Resources */ = {isa = PBXBuildFile; fileRef = 588710411E89759D0097266D /* emptyBookCover.png */; };
 		588710441E89759D0097266D /* emptyPdf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 588710421E89759D0097266D /* emptyPdf.pdf */; };
@@ -52,6 +54,8 @@
 		5840FBCF1E439966003336E0 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 		584979761E4A295100C5896D /* favorite_OFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_OFF.png; sourceTree = "<group>"; };
 		584979771E4A295100C5896D /* favorite_ON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_ON.png; sourceTree = "<group>"; };
+		584D3D951EB758E10058E8FD /* BooksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksTableViewCell.swift; sourceTree = "<group>"; };
+		584D3D961EB758E10058E8FD /* BooksTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BooksTableViewCell.xib; sourceTree = "<group>"; };
 		5853E16C1EA7DD7200CC5F5D /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
 		588710411E89759D0097266D /* emptyBookCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyBookCover.png; sourceTree = "<group>"; };
 		588710421E89759D0097266D /* emptyPdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = emptyPdf.pdf; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 				583386631E40E5A5004D2526 /* ViewController.swift */,
 				58892E8E1E42515100AE5C82 /* Frameworks */,
 				5833867C1E40F1C5004D2526 /* Models */,
+				584D3D8E1EB752E40058E8FD /* Views */,
 				583C03191E4518B600E972A8 /* Controllers */,
 				583386731E40EF0A004D2526 /* Resources */,
 				583386651E40E5A5004D2526 /* Main.storyboard */,
@@ -143,6 +148,15 @@
 				58DA82F51E47ADC300DAEA24 /* PdfViewController.xib */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		584D3D8E1EB752E40058E8FD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				584D3D951EB758E10058E8FD /* BooksTableViewCell.swift */,
+				584D3D961EB758E10058E8FD /* BooksTableViewCell.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		58892E8E1E42515100AE5C82 /* Frameworks */ = {
@@ -223,6 +237,7 @@
 				5853E16D1EA7DD7200CC5F5D /* books_readable.json in Resources */,
 				583386671E40E5A5004D2526 /* Main.storyboard in Resources */,
 				58DA82F31E47957400DAEA24 /* BookViewController.xib in Resources */,
+				584D3D981EB758E10058E8FD /* BooksTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				584D3D971EB758E10058E8FD /* BooksTableViewCell.swift in Sources */,
 				58DA82F61E47ADC300DAEA24 /* PdfViewController.swift in Sources */,
 				58207EF01E4203CB005E8B64 /* JSONProcessing.swift in Sources */,
 				583386641E40E5A5004D2526 /* ViewController.swift in Sources */,
