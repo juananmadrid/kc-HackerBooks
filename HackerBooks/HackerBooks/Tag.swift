@@ -1,7 +1,9 @@
 import Foundation
 
+typealias Tags = Set<Tag>
+
+
 class Tag {
-    
     
     // MARK: - Stores properties
     var name	: String

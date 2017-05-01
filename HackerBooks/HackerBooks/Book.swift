@@ -6,7 +6,7 @@ class Book {
     // MARK: - Stored Properties
     let titulo      :   String
     let autores     :   String
-    let tags        :   [Tag]       // Set<Tag>
+    let tags        :   Set<Tag>
     let image       :   AsyncData
     let pdf         :   AsyncData
     var isFavorite  :   Bool = false
@@ -16,7 +16,7 @@ class Book {
     
     init(title: String,
          authors: String,
-         tags: [Tag],               // Set<Tag>
+         tags: Set<Tag>,               
          photo: AsyncData,
          pdf: AsyncData){
         

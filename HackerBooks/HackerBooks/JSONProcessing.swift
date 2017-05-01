@@ -39,23 +39,17 @@ func decode(book json: JSONDictionary) throws -> Book{
     
     if let tags = json["tags"] as? String{
         
-        // Convierto string de tags separados con comas en array de String
-        let array: Array = tags.components(separatedBy: ",")
-    
-        // Convierto array de String en array de Tag
-        let arrayTag = convers(array)
-        
         // Imagen y pdf por defecto
         let defaultImageURL = Bundle.main.url(forResource: "emptyBookCover", withExtension: "png")
         let defaultPdfURL = Bundle.main.url(forResource: "emptyPdf", withExtension: "pdf")
-        
+        let tags = Tags(parseCommaSeparated(string: tags).map{Tag(tagName: $0)})
         // Obtengo imagenes usando Async e imagenes por defecto 
         let image = AsyncData(url: imageURL, defaultData: try Data(contentsOf: defaultImageURL!))
         let pdf = AsyncData(url: pdfURL, defaultData: try Data(contentsOf: defaultPdfURL!))
 
         return Book(title: titulo!,
                     authors: autor!,
-                    tags: arrayTag,
+                    tags: tags,
                     photo: image,
                     pdf: pdf)
         
@@ -90,9 +84,16 @@ func convers(_ array: Array<String>) -> tagArray{
         return arrayTag
 }
 
+// MARK: - Parsing
+
+// Parsea strings separado por comas en un array de Authors o Tags
+func parseCommaSeparated(string s: String)->[String]{
+    
+    return s.components(separatedBy: ",").map({ $0.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }).filter({ $0.characters.count > 0})
+}
 
 
-// MARK: - Loading
 
 /// Ahora esto la descarga y decodificacion la hacemos directamente en AppDelegate
 // Función que carga JSON e imagenes y devuelve un array de books
