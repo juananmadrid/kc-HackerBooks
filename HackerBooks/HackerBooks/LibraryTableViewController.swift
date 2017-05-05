@@ -10,8 +10,8 @@ class LibraryTableViewController: UITableViewController {
     var model : Library
     
     weak var delegate : LibraryTableViewController? = nil
-    
-    
+
+
     // MARK: - Inizialization
     init(model: Library, style: UITableViewStyle = .plain){
         self.model = model
@@ -33,6 +33,7 @@ class LibraryTableViewController: UITableViewController {
     private func registerNib(){
         
         let nib = UINib(nibName: "BooksTableViewCell", bundle: Bundle.main)
+        
         tableView.register(nib, forCellReuseIdentifier: BooksTableViewCell.cellID)
     }
 
@@ -43,8 +44,8 @@ class LibraryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // indexPath tiene 2 secciones: Section y Row
         
-        // Definir un Id para el tipo de celda (para pedir celda reutilizada)
-        let cellId = "BookCell"
+        // Id para reutilizar celda. Ahora se implementa en BooksTableViewCell
+        // let cellId = "BookCell"
         
         // Averiguar el Tag
         let tag = model.tagsArray[indexPath.section]
@@ -53,7 +54,7 @@ class LibraryTableViewController: UITableViewController {
         let book = model.book(forTagName: tag.name, at: indexPath.row)
         
         // Creamos la celda
-        var cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.cellID, for: indexPath) as! BooksTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.cellID, for: indexPath) as! BooksTableViewCell
         // var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
         
 //        if cell == nil{
@@ -74,6 +75,7 @@ class LibraryTableViewController: UITableViewController {
         // Devolverla
         return cell
     }
+    
     
     // Definimos altura de la celda
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -113,7 +115,7 @@ class LibraryTableViewController: UITableViewController {
         return model.bookCount(forTagName: tagName)
     }
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         return model.tagsArray[section].name
     }
@@ -149,8 +151,10 @@ class LibraryTableViewController: UITableViewController {
 
 }
 
+// MARK: - Protocols
 
-//MARK: - Notifications
+
+// MARK: - Notifications
  extension LibraryTableViewController{
     
     

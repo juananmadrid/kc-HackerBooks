@@ -8,12 +8,12 @@ class  AsyncData {
     var i = 0
     
     let url     : URL
-    var _data    : Data
-    private var _hasExternalData = false
+    var _data   : Data
+    private var _hasExternalData = false            // Llegó el dato
     weak public var delegate: AsyncDataDelegate?
     
     
-    var data : Data{
+    var data : Data{        // Si dato descargado en local lo devuelve y si no lo descarga
         get{
             if !_hasExternalData{
                 DispatchQueue.global(qos: .default).async {
@@ -36,18 +36,18 @@ class  AsyncData {
         if loadLocalData() == false{
             loadAndSaveRemoteData()
         }
-        
     }
+ 
     private
     func loadLocalData() -> Bool{
         
         let fm = FileManager.default
-        let local = localURL(forRemoteURL: url)
-        if fm.fileExists(atPath: local.path){
-            delegate?.asyncData(self, willStartLoadingFrom: local)
+        let local = localURL(forRemoteURL: url)     // Crea direct. local
+        if fm.fileExists(atPath: local.path){       // Si ya existe notifica y avisa a delegado
+            delegate?.asyncData(self, willStartLoadingFrom: local)  // Aviso de Inicio carga desde url local
             _data = try! Data(contentsOf: local)
             _hasExternalData = true
-            delegate?.asyncData(self, didEndLoadingFrom: local)
+            delegate?.asyncData(self, didEndLoadingFrom: local)     /// Aviso de Finalización de carga
             sendNotification()
             return true
         }else{
@@ -60,15 +60,15 @@ class  AsyncData {
         
         if delegate?.asyncData(self, shouldStartLoadingFrom: url) == true {
             DispatchQueue.global(qos: .default).async {
-                self.delegate?.asyncData(self, willStartLoadingFrom: self.url)
+                self.delegate?.asyncData(self, willStartLoadingFrom: self.url) // Aviso Init download
                 
                 let tmpData = try! Data(contentsOf: self.url)
                 
                 DispatchQueue.main.async {
                     self._hasExternalData = true
-                    self._data = tmpData
+                    self._data = tmpData                            // Actualizo _data
                     
-                    self.delegate?.asyncData(self, didEndLoadingFrom: self.url)
+                    self.delegate?.asyncData(self, didEndLoadingFrom: self.url) // Aviso Fin download
                     self.sendNotification()
                     self.saveToLocalStorage()
                     self._hasExternalData = true

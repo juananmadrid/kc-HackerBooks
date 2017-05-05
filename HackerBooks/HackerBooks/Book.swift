@@ -6,17 +6,18 @@ class Book {
     // MARK: - Stored Properties
     let titulo      :   String
     let autores     :   String
-    let tags        :   Set<Tag>
+    let tags        :   Tags
     let image       :   AsyncData
     let pdf         :   AsyncData
     var isFavorite  :   Bool = false
     
+    weak var delegate : BookDelegate?
     
     // MARK: - Inizialization
     
     init(title: String,
          authors: String,
-         tags: Set<Tag>,               
+         tags: Tags,
          photo: AsyncData,
          pdf: AsyncData){
         
@@ -26,6 +27,8 @@ class Book {
         image = photo
         self.pdf = pdf
         
+        image.delegate = self
+        pdf.delegate = self
     }
     
     // MARK: - Proxies
@@ -42,6 +45,7 @@ class Book {
     }
 
 }
+
 
 
 // MARK: - Protocols
@@ -84,5 +88,61 @@ extension Book: Hashable{
 }
 
 
+// MARK: - DELEGATE
+
+protocol BookDelegate: class {
+    
+    func bookDidChange(sender: Book)
+    func coverImageDidDownload(sender: Book)
+    func pdfDidDownload(sender: Book)
+}
+
+extension BookDelegate {
+    
+    func bookDidChange(sender: Book) {}
+    func coverImageDidDownload(sender: Book) {}
+    func pdfDidDownload(sender: Book) {}
+}
+
+// MARK: - NOTIFICATIONS
+
+// To BookTableViewCell (cuando carga coverImage)
+let CoverImageDidDownload = Notification.Name(rawValue: "BookCoverImageDidDownload")
+// To PdfViewController (cuando carga pdf)
+let PDFDidDownload = Notification.Name(rawValue: "BookPDFDidDownload")
+// To LibraryViewController (cuando cambia Favorito)
+let BookDidChange = Notification.Name(rawValue: "BookDidChange")
+
+
+extension Book {
+    
+    func notify(nameNotification: Notification.Name) {
+        let nc = NotificationCenter.default
+        let notification = Notification(name: nameNotification, object: self, userInfo: ["BookChange": self])
+        nc.post(notification)
+    }
+}
+
+// MARK: - ASYNCDATADELEGATE
+
+extension Book: AsyncDataDelegate {
+    
+    func asyncData(_ sender: AsyncData, didEndLoadingFrom url: URL){
+        
+        if sender == image {
+            delegate?.coverImageDidDownload(sender: self)
+            notify(nameNotification: CoverImageDidDownload)
+        }
+        if sender == pdf {
+            notify(nameNotification: PDFDidDownload)
+        }
+    }
+    
+    func asyncData(_ sender: AsyncData, willStartLoadingFrom url: URL){
+        print("Start Loading from \(url)")
+    }
+        
+
+}
 
 

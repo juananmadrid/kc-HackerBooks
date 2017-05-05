@@ -7,16 +7,11 @@ class Library{
     typealias Multidictionary = MultiDictionary<Tag, Book>
     
     // MARK: - Properties
-//    var books 	: [Book]               // Array de libros
-//    var tags    : Set<Tag>
     var mdict   : Multidictionary
-
     
     // MARK: - Initialization
     init(bookArray : BooksArray){
         
-//        books 	= 	[]
-//        tags    = 	[]
         mdict 	= 	Multidictionary()
         
         bookLoad(array: bookArray)
@@ -32,25 +27,6 @@ class Library{
                 mdict.insert(value: book, forKey: tag)
             }
         }
-        
-//        for book in array{
-//            
-//            // Asigno a books
-//            books.append(book)
-//            
-//            // Asigno a tags
-//            for element in book.tags{
-//                tags.insert(element)
-//            }
-//            
-//            // Asigno a mdict
-//            for tag in book.tags{
-//                
-//                var bucket = Set<String>()      // creo set vacío
-//                bucket.insert(book.titulo)      // inserto titulo del libro
-//                mdict[tag.name] = bucket        //
-//            }
-//        }
     }
 
     
@@ -149,8 +125,6 @@ class Library{
     }
     
 
-    
-    
     
     
 }

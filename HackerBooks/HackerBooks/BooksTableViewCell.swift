@@ -15,21 +15,22 @@ class BooksTableViewCell: UITableViewCell {
     @IBOutlet weak var titleBook: UILabel!
     @IBOutlet weak var authorsBook: UILabel!
     @IBOutlet weak var tagsBook: UILabel!
+
     
-    // private
+    // Sincronizamos celda con modelo
     func syncWithBook(book: Book) {
         
         self.book = book
         
+        book.delegate = self
+
         imageBook.image = UIImage(data: (book.image._data))
         titleBook.text   = book.titulo
         authorsBook.text = book.autores
         tagsBook.text    = book.tagList()
         
     }
-    
-    
-    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,4 +42,22 @@ class BooksTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+
+
+extension BooksTableViewCell: BookDelegate {
+    
+    func coverImageDidDownload(sender: Book) {
+        syncWithBook(book: sender)
+    }
+}
+
+extension BooksTableViewCell {
+    func suscribeNotify(book: Book){
+        let nc = NotificationCenter.default
+        nc.addObserver(forName: CoverImageDidDownload, object: book, queue: nil) { (n: Notification) in
+            self.syncWithBook(book: book)
+        }
+    }
 }
