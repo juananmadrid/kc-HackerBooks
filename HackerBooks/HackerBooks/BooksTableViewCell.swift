@@ -8,6 +8,7 @@ class BooksTableViewCell: UITableViewCell {
     
     fileprivate
     var book : Book?
+    
     let nc = NotificationCenter.default
 
     // MARK: - IBOutlets
@@ -19,11 +20,14 @@ class BooksTableViewCell: UITableViewCell {
 
     
     // Sincronizamos celda con modelo
+    // Usamos Delegado y Notificaciones para reflejar como se hace. Con uno bastaría
     func syncAndObserve(book: Book) {
         
         self.book = book
 
         suscribeNotify(book: book)
+        
+        book.delegate = self
         
         syncWithBook(book: book)
         
@@ -32,7 +36,7 @@ class BooksTableViewCell: UITableViewCell {
     fileprivate
     func syncWithBook(book: Book){
         
-        imageBook.image = UIImage(data: (book.image.data))
+        imageBook.image  = UIImage(data: (book.image.data))
         titleBook.text   = book.titulo
         authorsBook.text = book.autores
         tagsBook.text    = book.tagList()
@@ -73,3 +77,13 @@ extension BooksTableViewCell {
     }
 
 }
+
+
+extension BooksTableViewCell: BookDelegate {
+    
+    func coverImageDidDownload(sender: Book) {
+        syncWithBook(book: sender)
+    }
+}
+
+
