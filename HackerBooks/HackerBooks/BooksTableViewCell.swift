@@ -8,7 +8,6 @@ class BooksTableViewCell: UITableViewCell {
     
     fileprivate
     var book : Book?
-    
     let nc = NotificationCenter.default
 
     // MARK: - IBOutlets
@@ -20,14 +19,14 @@ class BooksTableViewCell: UITableViewCell {
 
     
     // Sincronizamos celda con modelo
-    // Usamos Delegado y Notificaciones para reflejar como se hace. Con uno bastaría
+    // Usamos Delegado y Notificación para reflejar como se hace. Con uno bastaría
     func syncAndObserve(book: Book) {
         
         self.book = book
 
-        suscribeNotify(book: book)
-        
-        book.delegate = self
+        book.delegate = self            // Versión Delegado
+
+        suscribeNotify(book: book)      // Versión Notificación
         
         syncWithBook(book: book)
         

@@ -8,7 +8,9 @@ class PdfViewController: UIViewController {
     @IBOutlet weak var pdf: UIWebView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    var model: Book
+    var model: Book?
+    let nc = NotificationCenter.default
+
     
     // MARK: - Inizialization
     init(model: Book){
@@ -20,49 +22,51 @@ class PdfViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-
-    
     // MARK: - View Lifecycle
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad() {
         
         super.viewDidLoad()
-        syncViewWithModel()
+        
+        startNotify(book: model!)
+        
+        syncViewWithModel(book: model!)
         
     }
 
-    
-    
-    /////    PENIENTE: NOTIFICACIÓN PARA LLAMAR A syncViewWithModel cdo cargue web  /////
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        stopObserve()
+    }
     
     
     // MARK: Sync Model -> View
-    func syncViewWithModel(){
+    func syncViewWithModel(book: Book){
         
-        pdf.load(model.pdf.data, mimeType: "application/pdf", textEncodingName: "utf8", baseURL: URL(string:"https://www.google.com")!)
+        pdf.load(book.pdf.data, mimeType: "application/pdf", textEncodingName: "utf8", baseURL: URL(string:"https://www.google.com")!)
     }
 
 }
 
 
-/// Quitamos spinner, en su lugar cargamos defaultImage mientras carga
-// MARK: - UIWebViewDelegate
-//extension PdfViewController: UIWebViewDelegate {
-//    
-//    func webViewDidStartLoad(_ webView: UIWebView) {
-//
-//        spinner.isHidden = false
-//        spinner.startAnimating()
-//    }
-//    
-//    func webViewDidFinishLoad(_ webView: UIWebView) {
-//
-//        spinner.isHidden = true
-//        spinner.stopAnimating()
-//        print("carga de pdf terminada")
-//        
-//    }
-//}
 
-
-
+extension PdfViewController {
+    
+    func startNotify(book: Book){
+        nc.addObserver(forName: PDFDidDownload, object: book, queue: nil) { (n: Notification) in
+            self.syncViewWithModel(book: book)
+        }
+    }
+    
+    func stopObserve(){
+        
+        var bookObserver : NSObjectProtocol?
+        
+        if let observer = bookObserver{
+            nc.removeObserver(observer)
+            bookObserver = nil
+            model = nil
+        }
+    }
+    
+}
 

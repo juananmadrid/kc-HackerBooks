@@ -36,7 +36,7 @@ class BookViewController: UIViewController {
     // MARK: - Sync Model -> View
     func syncViewWithModel(){
 
-        let image = UIImage(data: model.image._data)
+        let image = UIImage(data: model.image.data)
         photoView.image = image
         title = model.titulo
     }
