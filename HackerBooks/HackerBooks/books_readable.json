@@ -2,14 +2,14 @@
   {
   "authors": "Scott Chacon, Ben Straub",
   "image_url": "https://boluda.com/files/pasar-wordpress-a-ssl.jpg",
-  "pdf_url": "https://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf",
+  "pdf_url": "http://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf",
   "tags": "version control, git",
   "title": "Pro Git"
   },
   {
   "authors": "Marijn Haverbeke ",
   "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/HTTPS_Everywhere_icon.svg/1200px-HTTPS_Everywhere_icon.svg.png",
-  "pdf_url": "https://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf",
+  "pdf_url": "http://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf",
   "tags": "javascript",
   "title": "Eloquent JavaScript"
   }  ]
