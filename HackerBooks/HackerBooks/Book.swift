@@ -91,7 +91,7 @@ extension Book: Hashable{
 // MARK: - DELEGATE
 
 protocol BookDelegate: class {
-    
+
     func bookDidChange(sender: Book)
     func coverImageDidDownload(sender: Book)
     func pdfDidDownload(sender: Book)

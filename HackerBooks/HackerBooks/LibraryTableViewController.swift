@@ -71,9 +71,16 @@ class LibraryTableViewController: UITableViewController {
 //        cell?.detailTextLabel?.text   =   book?.autores
         
         // Sync model (book) -> View (cell)
-        cell.syncWithBook(book: book!)
-        // Devolverla
+        cell.syncAndObserve(book: book!)
+        
         return cell
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath) as! BooksTableViewCell
+        cell.stopObserve()
     }
     
     
@@ -119,7 +126,6 @@ class LibraryTableViewController: UITableViewController {
         
         return model.tagsArray[section].name
     }
-    
     
     
     // MARK: - Utils

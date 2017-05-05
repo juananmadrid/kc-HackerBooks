@@ -44,8 +44,8 @@ func decode(book json: JSONDictionary) throws -> Book{
         let defaultPdfURL = Bundle.main.url(forResource: "emptyPdf", withExtension: "pdf")
         let tags = Tags(parseCommaSeparated(string: tags).map{Tag(tagName: $0)})
         // Obtengo imagenes usando Async e imagenes por defecto 
-        let image = AsyncData(url: imageURL, defaultData: try Data(contentsOf: defaultImageURL!))
-        let pdf = AsyncData(url: pdfURL, defaultData: try Data(contentsOf: defaultPdfURL!))
+        let image = AsyncData(url: imageURL, defaultData: try! Data(contentsOf: defaultImageURL!))
+        let pdf = AsyncData(url: pdfURL, defaultData: try! Data(contentsOf: defaultPdfURL!))
 
         return Book(title: titulo!,
                     authors: autor!,

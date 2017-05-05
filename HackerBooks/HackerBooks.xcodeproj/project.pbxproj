@@ -100,6 +100,7 @@
 				583386631E40E5A5004D2526 /* ViewController.swift */,
 				58892E8E1E42515100AE5C82 /* Frameworks */,
 				5833867C1E40F1C5004D2526 /* Models */,
+				5842C9F31EBCE84600B5B70D /* Utils */,
 				584D3D8E1EB752E40058E8FD /* Views */,
 				583C03191E4518B600E972A8 /* Controllers */,
 				583386731E40EF0A004D2526 /* Resources */,
@@ -129,7 +130,6 @@
 				5833867A1E40F1B9004D2526 /* Book.swift */,
 				583C03131E44824A00E972A8 /* Tag.swift */,
 				583C03111E4481A200E972A8 /* Library.swift */,
-				58207EED1E41F6D4005E8B64 /* AsyncData.swift */,
 				58207EEF1E4203CB005E8B64 /* JSONProcessing.swift */,
 				58207EF11E420D1C005E8B64 /* Errors.swift */,
 				5840FBCF1E439966003336E0 /* MultiDictionary.swift */,
@@ -148,6 +148,14 @@
 				58DA82F51E47ADC300DAEA24 /* PdfViewController.xib */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		5842C9F31EBCE84600B5B70D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				58207EED1E41F6D4005E8B64 /* AsyncData.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		584D3D8E1EB752E40058E8FD /* Views */ = {

@@ -12,7 +12,6 @@ class  AsyncData {
     private var _hasExternalData = false            // Llegó el dato
     weak public var delegate: AsyncDataDelegate?
     
-    
     var data : Data{        // Si dato descargado en local lo devuelve y si no lo descarga
         get{
             if !_hasExternalData{
@@ -30,6 +29,7 @@ class  AsyncData {
     }
     
     //MARK: - Data Fetching
+    
     private
     func loadData(){
         

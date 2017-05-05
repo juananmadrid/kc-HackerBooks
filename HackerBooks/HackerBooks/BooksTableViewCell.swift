@@ -6,9 +6,10 @@ class BooksTableViewCell: UITableViewCell {
     static let cellID = "BookCell"
     static let cellHeight : CGFloat = 70.0
     
-    private
+    fileprivate
     var book : Book?
-    
+    let nc = NotificationCenter.default
+
     // MARK: - IBOutlets
     
     @IBOutlet weak var imageBook: UIImageView!
@@ -18,19 +19,25 @@ class BooksTableViewCell: UITableViewCell {
 
     
     // Sincronizamos celda con modelo
-    func syncWithBook(book: Book) {
+    func syncAndObserve(book: Book) {
         
         self.book = book
-        
-        book.delegate = self
 
-        imageBook.image = UIImage(data: (book.image._data))
-        titleBook.text   = book.titulo
-        authorsBook.text = book.autores
-        tagsBook.text    = book.tagList()
+        suscribeNotify(book: book)
+        
+        syncWithBook(book: book)
         
     }
 
+    fileprivate
+    func syncWithBook(book: Book){
+        
+        imageBook.image = UIImage(data: (book.image.data))
+        titleBook.text   = book.titulo
+        authorsBook.text = book.autores
+        tagsBook.text    = book.tagList()
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,20 +51,25 @@ class BooksTableViewCell: UITableViewCell {
     
 }
 
-
-
-extension BooksTableViewCell: BookDelegate {
-    
-    func coverImageDidDownload(sender: Book) {
-        syncWithBook(book: sender)
-    }
-}
+// Mark: - Observing Notification
 
 extension BooksTableViewCell {
+    
     func suscribeNotify(book: Book){
-        let nc = NotificationCenter.default
         nc.addObserver(forName: CoverImageDidDownload, object: book, queue: nil) { (n: Notification) in
             self.syncWithBook(book: book)
         }
     }
+    
+    func stopObserve(){
+        
+        var bookObserver : NSObjectProtocol?
+        
+        if let observer = bookObserver{
+            nc.removeObserver(observer)
+            bookObserver = nil
+            book = nil
+        }
+    }
+
 }
