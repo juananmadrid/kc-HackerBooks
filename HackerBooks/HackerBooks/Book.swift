@@ -6,10 +6,9 @@ class Book {
     // MARK: - Stored Properties
     let titulo      :   String
     let autores     :   String
-    let tags        :   Tags
+    var tags        :   Tags
     let image       :   AsyncData
     let pdf         :   AsyncData
-    var isFavorite  :   Bool = false
     
     weak var delegate : BookDelegate?
     
@@ -44,6 +43,49 @@ class Book {
         return tags.sorted().map{$0.name}.joined(separator: ", ").capitalized
     }
 
+}
+
+// MARK: - Favoritos
+
+extension Book {
+    
+    func addTagFavorito() {
+        
+        let tagFavorito = Tag(tagName: "Favorito")
+        tags.insert(tagFavorito)
+    }
+    
+    func removeTagFavorito() {
+        
+        let tagFavorito = Tag(tagName: "Favorito")
+        tags.remove(tagFavorito)
+    }
+    
+    
+    var isFavorite : Bool{
+        
+        get{
+            return self.isFavorite
+        }
+        
+        set{
+            if newValue == true{
+                
+                // Añadimos Tag favorito en Book
+                addTagFavorito()
+                // Notificación para añadir Tag en Multidict (Library)
+                // y para recargar tabla que actualice Tag Favorito
+                notify(nameNotification: BookDidChange)
+                
+            }else{
+                
+                // Borramos Tag favorito en Book
+                removeTagFavorito()
+                //  Notificación para borrar Tag en Multidict y recargar tabla
+                notify(nameNotification: BookDidChange)
+            }
+        }
+    }
 }
 
 
@@ -116,6 +158,7 @@ let BookDidChange = Notification.Name(rawValue: "BookDidChange")
 
 extension Book {
     
+    // Notificación común para los 3 tipos de notificaciones, solo cambia Notification.Name
     func notify(nameNotification: Notification.Name) {
         let nc = NotificationCenter.default
         let notification = Notification(name: nameNotification, object: self, userInfo: ["BookChange": self])

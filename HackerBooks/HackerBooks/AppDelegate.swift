@@ -74,10 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             fatalError("Error while loading Model from JSON")
         }
         
-        
-        
-        
-        
         return true
     }
 

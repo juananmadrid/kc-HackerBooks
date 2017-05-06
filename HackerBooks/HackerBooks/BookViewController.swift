@@ -10,12 +10,13 @@ class BookViewController: UIViewController {
 
     // MARK: - Properties
     let model : Book
-    let favorite_on = UIImage(named: "favorite_ON")! as UIImage
-    let favorite_off = UIImage(named: "favorite_OFF")! as UIImage
 
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var favoriteItem: UIBarButtonItem!
     
+//    let nc = NotificationCenter.default
+//    var notification : NSObjectProtocol?
+
     let imageFavOn = UIImage(named: "favorite_ON.png")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
     let imageFavOff = UIImage(named: "favorite_OFF.png")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
     
@@ -46,10 +47,8 @@ class BookViewController: UIViewController {
         
         if model.isFavorite {
             favoriteItem.image = imageFavOn
-            
         } else {
             favoriteItem.image = imageFavOff
-
         }
         
     }
@@ -57,20 +56,12 @@ class BookViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func readPDF(_ sender: Any) {
+    @IBAction func favoriteSwitch(_ sender: Any) {
         
-        // Creamos pdf
-        let pVC = PdfViewController(model: model)
-        // Hacemos push
-        navigationController?.pushViewController(pVC, animated: true)
+        // Actualizamos modelo
+        model.isFavorite = !model.isFavorite
         
-    }
-    
-    
-        @IBAction func favoriteSwitch(_ sender: Any) {
-        
-        // Usuario ha pulsado en icono, cambiamos icono
-        
+        // Cambiamos icono
         if self.model.isFavorite{
             self.model.isFavorite = false
             favoriteItem.image = imageFavOff
@@ -80,27 +71,40 @@ class BookViewController: UIViewController {
             favoriteItem.image = imageFavOn
         }
         
-        /// mandamos una notificación
-        let bookModificated = self.model
-        notify(bookFavoriteChanged: bookModificated)
-        
     }
+    
+    
+    @IBAction func readPDF(_ sender: Any) {
+        
+        let pVC = PdfViewController(model: model)
+        navigationController?.pushViewController(pVC, animated: true)
+    }
+    
+    
 }
+
 
 // MARK: - Notificaciones
 
 // Notificación de pulsación de favoritos
-extension BookViewController{
-    
-    func notify(bookFavoriteChanged book: Book){
-        
-        let nc = NotificationCenter.default
-        
-        let notification = Notification(name: BookViewController.notificationName, object: self, userInfo: [BookViewController.bookKey : book])
-        
-        nc.post(notification)
-    }
-}
+//extension BookViewController{
+//    
+//    func suscribeNotify(bookFavoriteChanged book: Book){
+//        
+//        
+//        let notification = Notification(name: BookViewController.notificationName, object: self, userInfo: [BookViewController.bookKey : book])
+//        
+//        nc.post(notification)
+//    }
+//    
+//    func stopObserve(){
+//        
+//        if let observer = notification {
+//            nc.removeObserver(observer)
+//
+//        }
+//    }
+//}
 
 
 
