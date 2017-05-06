@@ -7,6 +7,10 @@ class LibraryTableViewController: UITableViewController {
     var model : Library
     weak var delegate : LibraryTableViewController? = nil
 
+    let nc = NotificationCenter.default
+    var notification : NSObjectProtocol?
+
+    
     // MARK: - Inizialization
     init(model: Library, style: UITableViewStyle = .plain){
         self.model = model
@@ -14,6 +18,9 @@ class LibraryTableViewController: UITableViewController {
         title = "HackerBooks"
     }
     
+    deinit {
+        stopObserve()
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -21,7 +28,9 @@ class LibraryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerNib()       // Cell personalized registration
+        registerNib()       // Registro de celdas personalizadas
+        
+        suscribeNotify()
     }
 
     //MARK: - Cell personalized registration
@@ -135,90 +144,30 @@ class LibraryTableViewController: UITableViewController {
         array.sort()
         return array.joined(separator: ", ")
     }
+
     
-  
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // suscribe()                 // Nos suscribimos a la notificación
-//
-//    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        
-        // unsubscribe()
-        
-    }
-
 }
-
-// MARK: - Protocols
 
 
 // MARK: - Notifications
+
  extension LibraryTableViewController{
     
-    
-//    func suscribe(){
-//        
-//        let nc = NotificationCenter.default
-//        
-//        nc.addObserver(forName: BookViewController.notificationName, object: nil, queue: OperationQueue.main) { (note: Notification) in
-//            
-//            // extraemos libro a modificar y su estado de isFavorite
-//            let userInfo = note.userInfo
-//            let book = userInfo?[BookViewController.bookKey] as? Book
-//            
-//            // localizamos libro en array de libros
-//            let index = self.model.books.index(of: book!)
-//            let bookSelect = self.model.books[index!]
-//            
-//            // Añadimos a favoritos
-//            if let newFavoritos = book?.isFavorite {
-//                
-//                // cambiamos flag en libro
-//                bookSelect.isFavorite = true
-//                
-//                // Creamos nuevo Tag Favoritos
-//                let favoritos = Tag(tagName: "Favoritos")
-//                favoritos.isFavorite = true
-//                
-//                // añadimos tag en array de TAg
-//                self.model.tags.append(favoritos)
-//                
-//                // añadimos tag y libro a Multidictionary
-//                self.model.mdict.insert(value: bookSelect.titulo, forKey: favoritos.name)
-//                
-//            // Eliminamos de favoritos
-//            } else{
-//                // cambiamos flag en libro
-//                bookSelect.isFavorite = false
-//                
-//                // elimina tag en array de Tag
-//                let favoritos = Tag(tagName: "Favoritos")
-//                let indexTag = self.model.tags.index(of: favoritos)
-//                self.model.tags.remove(at: indexTag!)
-//                
-//                // Sacamos libro de Multidiccionario con Tag Favoritos
-//                self.model.mdict.remove(value: bookSelect.titulo, fromKey: "Favoritos")
-//                
-//                // Si no hay más libros en Tag favotiros de Multidictionary el Tag
-//                // Favoritos se elimina automáticamente
-//                
-//            }
-//        }
-//
-//    }
-    
-    
-    func unsubscribe(){
-
-        let nc = NotificationCenter.default
+    func suscribeNotify(){
         
-        nc.removeObserver(self)                 // Nos da de baja de TODAS las notificaciones (Observer yo mismo)
+        _ = nc.addObserver(forName: BookDidChange, object: nil, queue: nil) { (n: Notification) in
+            self.tableView.reloadData()
+            
+        }
         
     }
- 
+    
+    func stopObserve(){
+        
+        if let observer = notification {
+            nc.removeObserver(observer)
+        }
+    }
     
 }
 

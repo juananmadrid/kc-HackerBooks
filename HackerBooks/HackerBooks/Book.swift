@@ -12,6 +12,8 @@ class Book {
     
     weak var delegate : BookDelegate?
     
+    let tagFavorito = Tag(tagName: "Favorite")
+    
     // MARK: - Inizialization
     
     init(title: String,
@@ -51,13 +53,13 @@ extension Book {
     
     func addTagFavorito() {
         
-        let tagFavorito = Tag(tagName: "Favorito")
+        // let tagFavorito = Tag(tagName: "Favorite")
         tags.insert(tagFavorito)
     }
     
     func removeTagFavorito() {
         
-        let tagFavorito = Tag(tagName: "Favorito")
+        // let tagFavorito = Tag(tagName: "Favorite")
         tags.remove(tagFavorito)
     }
     
@@ -65,7 +67,7 @@ extension Book {
     var isFavorite : Bool{
         
         get{
-            return self.isFavorite
+            return tags.contains(tagFavorito)
         }
         
         set{

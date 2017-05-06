@@ -14,9 +14,6 @@ class BookViewController: UIViewController {
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var favoriteItem: UIBarButtonItem!
     
-//    let nc = NotificationCenter.default
-//    var notification : NSObjectProtocol?
-
     let imageFavOn = UIImage(named: "favorite_ON.png")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
     let imageFavOff = UIImage(named: "favorite_OFF.png")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
     
@@ -39,6 +36,7 @@ class BookViewController: UIViewController {
 
     
     // MARK: - Sync Model -> View
+    
     func syncViewWithModel(){
 
         let image = UIImage(data: model.image.data)
@@ -60,15 +58,12 @@ class BookViewController: UIViewController {
         
         // Actualizamos modelo
         model.isFavorite = !model.isFavorite
-        
-        // Cambiamos icono
+
+        // Cambiamos icono con isFavorite ya actualizado
         if self.model.isFavorite{
-            self.model.isFavorite = false
-            favoriteItem.image = imageFavOff
-            
-        }else{
-            self.model.isFavorite = true
             favoriteItem.image = imageFavOn
+        }else{
+            favoriteItem.image = imageFavOff
         }
         
     }
@@ -83,28 +78,6 @@ class BookViewController: UIViewController {
     
 }
 
-
-// MARK: - Notificaciones
-
-// Notificación de pulsación de favoritos
-//extension BookViewController{
-//    
-//    func suscribeNotify(bookFavoriteChanged book: Book){
-//        
-//        
-//        let notification = Notification(name: BookViewController.notificationName, object: self, userInfo: [BookViewController.bookKey : book])
-//        
-//        nc.post(notification)
-//    }
-//    
-//    func stopObserve(){
-//        
-//        if let observer = notification {
-//            nc.removeObserver(observer)
-//
-//        }
-//    }
-//}
 
 
 

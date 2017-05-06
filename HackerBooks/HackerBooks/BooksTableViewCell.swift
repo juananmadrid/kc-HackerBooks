@@ -9,6 +9,7 @@ class BooksTableViewCell: UITableViewCell {
     fileprivate
     var book : Book?
     let nc = NotificationCenter.default
+    var bookObserver : NSObjectProtocol?
 
     // MARK: - IBOutlets
     
@@ -25,9 +26,7 @@ class BooksTableViewCell: UITableViewCell {
         self.book = book
 
         book.delegate = self            // Versión Delegado
-
         suscribeNotify(book: book)      // Versión Notificación
-        
         syncWithBook(book: book)
         
     }
@@ -65,8 +64,6 @@ extension BooksTableViewCell {
     }
     
     func stopObserve(){
-        
-        var bookObserver : NSObjectProtocol?
         
         if let observer = bookObserver{
             nc.removeObserver(observer)

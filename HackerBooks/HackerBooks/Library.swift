@@ -9,6 +9,10 @@ class Library{
     // MARK: - Properties
     var mdict   : Multidictionary
     
+    let nc = NotificationCenter.default
+    var notification : NSObjectProtocol?
+
+    
     // MARK: - Initialization
     init(bookArray : BooksArray){
         
@@ -16,6 +20,12 @@ class Library{
         
         bookLoad(array: bookArray)
         
+        suscribeNotify()
+        
+    }
+    
+    deinit {
+        stopObserve()
     }
     
     // Carga multidiccionario desde [Book]
@@ -124,11 +134,38 @@ class Library{
         }
     }
     
-
-    
-    
 }
 
+extension Library{
+    
+    func suscribeNotify(){
+        
+        _ = nc.addObserver(forName: BookDidChange, object: nil, queue: nil) { (n: Notification) in
+            
+            let book = n.userInfo?["BookChange"] as! Book
+            let favoriteTag = Tag(tagName: "Favorite")
+            
+            if book.isFavorite {
+                // Añadimos Tag Favorito en mdict (no diplica si ya existe)
+                self.mdict.insert(value: book, forKey: favoriteTag)
+                
+            } else {
+                // Borramos Tag Favorito en mdict si esta vacio
+                self.mdict.remove(value: book, fromKey: favoriteTag)
+            }
+
+        }
+        
+    }
+    
+    func stopObserve(){
+        
+        if let observer = notification {
+            nc.removeObserver(observer)
+        }
+    }
+
+}
 
 
 
