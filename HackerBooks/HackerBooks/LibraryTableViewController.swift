@@ -3,14 +3,9 @@ import Foundation
 
 class LibraryTableViewController: UITableViewController {
     
-    // MARK: - Constants
-    
-    
     // MARK: - Properties
     var model : Library
-    
     weak var delegate : LibraryTableViewController? = nil
-
 
     // MARK: - Inizialization
     init(model: Library, style: UITableViewStyle = .plain){

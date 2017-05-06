@@ -14,8 +14,11 @@ class PdfViewController: UIViewController {
     
     // MARK: - Inizialization
     init(model: Book){
+        
         self.model = model
         super.init(nibName: nil, bundle: nil)
+        
+        title = model.titulo
     }
     
     required init?(coder aDecoder: NSCoder) {

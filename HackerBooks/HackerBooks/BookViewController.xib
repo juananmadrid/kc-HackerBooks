@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookViewController" customModule="HackerBooks" customModuleProvider="target">
             <connections>
                 <outlet property="PhotoView" destination="wG6-rt-xGd" id="spH-Q3-2Df"/>
+                <outlet property="favoriteItem" destination="wgD-Q5-tOV" id="wXs-lg-WLf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,51 +21,36 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Ilb-8f-8Z4" userLabel="RootStackView">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Ilb-8f-8Z4" userLabel="RootStackView">
+                    <rect key="frame" x="0.0" y="0.0" width="374" height="625"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="wG6-rt-xGd" userLabel="photoView">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wG6-rt-xGd" userLabel="photoView">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="625"/>
                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
-                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUR-kx-Mnh">
-                            <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                            <items>
-                                <barButtonItem title="Read" id="zbf-0E-V5i">
-                                    <connections>
-                                        <action selector="readPDF:" destination="-1" id="HIR-f0-ijq"/>
-                                    </connections>
-                                </barButtonItem>
-                                <barButtonItem style="plain" systemItem="flexibleSpace" id="S9M-cc-zXJ"/>
-                                <barButtonItem image="favorite_OFF.png" style="plain" id="zD9-kW-s45">
-                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DCr-2j-YVa">
-                                        <rect key="frame" x="317" y="2" width="42" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button" image="favorite_OFF.png"/>
-                                        <connections>
-                                            <action selector="favoriteButton:" destination="-1" eventType="touchUpInside" id="dpQ-Ac-Eel"/>
-                                        </connections>
-                                    </button>
-                                    <connections>
-                                        <action selector="favoritButt:" destination="-1" id="Uba-2X-Jgc"/>
-                                    </connections>
-                                </barButtonItem>
-                            </items>
-                        </toolbar>
                     </subviews>
                 </stackView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mUR-kx-Mnh">
+                    <rect key="frame" x="0.0" y="623" width="374" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <barButtonItem title="Read" id="zbf-0E-V5i">
+                            <connections>
+                                <action selector="readPDF:" destination="-1" id="HIR-f0-ijq"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="WEq-cl-vVW"/>
+                        <barButtonItem title="Item" id="wgD-Q5-tOV">
+                            <connections>
+                                <action selector="favoriteSwitch:" destination="-1" id="nSE-Yo-3dD"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="Ilb-8f-8Z4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1eQ-dx-N0A"/>
-                <constraint firstItem="Ilb-8f-8Z4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8CO-hK-vqu"/>
-                <constraint firstAttribute="bottom" secondItem="Ilb-8f-8Z4" secondAttribute="bottom" id="K75-Ly-Jxj"/>
-                <constraint firstAttribute="trailing" secondItem="Ilb-8f-8Z4" secondAttribute="trailing" id="MGe-r3-fGa"/>
-            </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="favorite_OFF.png" width="40" height="40"/>
-    </resources>
 </document>

@@ -7,14 +7,17 @@ class BookViewController: UIViewController {
     //MARK: - Constants
     static let notificationName = Notification.Name(rawValue: "CharacterDidChangeFavorite")
     static let bookKey = "BookKey"
-    // static let favKey = "Favorite"
 
     // MARK: - Properties
-    @IBOutlet weak var photoView: UIImageView!
     let model : Book
     let favorite_on = UIImage(named: "favorite_ON")! as UIImage
     let favorite_off = UIImage(named: "favorite_OFF")! as UIImage
-    var isFavorite = false
+
+    @IBOutlet weak var photoView: UIImageView!
+    @IBOutlet weak var favoriteItem: UIBarButtonItem!
+    
+    let imageFavOn = UIImage(named: "favorite_ON.png")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+    let imageFavOff = UIImage(named: "favorite_OFF.png")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
     
     // MARK: - Inizialization
     init(model: Book){
@@ -30,6 +33,7 @@ class BookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         syncViewWithModel()
+
     }
 
     
@@ -39,6 +43,15 @@ class BookViewController: UIViewController {
         let image = UIImage(data: model.image.data)
         photoView.image = image
         title = model.titulo
+        
+        if model.isFavorite {
+            favoriteItem.image = imageFavOn
+            
+        } else {
+            favoriteItem.image = imageFavOff
+
+        }
+        
     }
     
     
@@ -52,21 +65,25 @@ class BookViewController: UIViewController {
         navigationController?.pushViewController(pVC, animated: true)
         
     }
-
     
-    @IBAction func favoriteButton(_ sender: UIButton) {
+    
+        @IBAction func favoriteSwitch(_ sender: Any) {
         
-        // Cambiamos flag e icono
-        // El Icono no cambia porque no sé como hacerlo
+        // Usuario ha pulsado en icono, cambiamos icono
+        
         if self.model.isFavorite{
             self.model.isFavorite = false
+            favoriteItem.image = imageFavOff
+            
         }else{
             self.model.isFavorite = true
+            favoriteItem.image = imageFavOn
         }
         
         /// mandamos una notificación
         let bookModificated = self.model
         notify(bookFavoriteChanged: bookModificated)
+        
     }
 }
 
