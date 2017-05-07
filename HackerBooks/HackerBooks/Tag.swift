@@ -17,16 +17,6 @@ class Tag {
 
     }
 
-    
-    // MARK: - Proxies
-    func proxyForEquality() -> String{
-        return "\(name)"
-    }
-    
-    func proxyForComparison() -> String{
-        return proxyForEquality()
-    }
-
 }
 
 
@@ -35,17 +25,24 @@ class Tag {
 
 extension Tag: Equatable{
     
-    public static func ==(lhs: Tag,
-                          rhs: Tag) -> Bool{
-        return (lhs.proxyForEquality() == rhs.proxyForEquality())
+    public static func ==(lhs: Tag, rhs: Tag) -> Bool{
+        return (lhs.name == rhs.name)
     }
 }
 
 extension Tag: Comparable{
     
-    public static func <(lhs: Tag,
-                         rhs: Tag) -> Bool{
-        return (lhs.proxyForComparison() < rhs.proxyForComparison())
+    public static func <(lhs: Tag, rhs: Tag) -> Bool{
+        
+        if lhs.name == "Favorite"{                // Favorito siempre Tag menor
+            return true
+        }
+        else if rhs.name == "Favorite"{           // Igual pero al en rhs
+            return false
+        }else{
+            return lhs.name < rhs.name    // Ordenamos por nombre el resto de Tag
+        }
+        
     }
 }
 
