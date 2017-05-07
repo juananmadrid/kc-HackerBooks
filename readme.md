@@ -14,4 +14,12 @@ Al seleccinar cualquier libro, la App muestra una vista en detalle del libro sel
 
 Los Tags se ordenan alfabéticamente, con el tag **Favorite** en primera posición que aparece solo cuando hay algún favorito.
 
+**EXTRAS**
+
+También he implementado la aplicación **UNIVERSAL** para que funcione tanto para iPhone como para iPad. 
+
+También he implementado el código para que cada vez que arranque la app en iPad lo haga mostrando el **ÚLTIMO LIBRO** visitado por el usuario, aunque ya no me ha dado tiempo a comprobar que funciona correctamente, creo que falta algún detalle que no me da tiempo a revisar.
+
+
+
 

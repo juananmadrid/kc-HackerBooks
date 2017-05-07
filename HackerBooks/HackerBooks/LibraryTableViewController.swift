@@ -111,8 +111,20 @@ class LibraryTableViewController: UITableViewController {
         
         if DeviceType.IS_IPAD {
             
+            // Avisamos a delegado para que actualice Book mostrado
             delegate?.bookDidSelect(sender: book!)
+            
+            // Registramos ultima selección en UserDefaults
+            if tag.name == "Favorite" {
+                let index = indexPath.section + 1
+                let tagNext = model.tagsArray[index]
+                registerLastBookSelected(book: book!, tag: tagNext)
+            } else {
+                registerLastBookSelected(book: book!, tag: tag)
+            }
+            
         }
+        
         
     }
     
@@ -188,3 +200,16 @@ extension LibraryTableViewControllerDelegate {
     func bookDidSelect(sender: Book) {}
 }
 
+
+
+extension LibraryTableViewController {
+    
+    // Registramos último book seleccionado
+    func registerLastBookSelected(book: Book, tag: Tag) -> () {
+        
+        let defaults = UserDefaults.standard
+        defaults.set(book.titulo, forKey: "HackerBooks.Book")
+        defaults.set(tag.name, forKey: "HackerBooks.Tag")
+    }
+
+}

@@ -67,8 +67,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if DeviceType.IS_IPAD {
                 print("Es un iPad")
                 
+                // Definimos libro inicial 
+                let bookDefault = model.book(forTagName: "Android", at: 0)!
+                var bookToLoad = bookDefault
+                
+                // Recuperamos último libro seleccionado por usuario si lo hay
+                let defaults = UserDefaults.standard
+                
+                func obtainBookToLoad (bookName: String, tagName: String) -> Book {
+                    
+                    let bookArray = model.books(forTagName: tagName)
+                    var bookToLoad: Book?
+                    
+                    for book in bookArray! {
+                        if book.titulo.hash == tagName.hash {
+                            bookToLoad = book
+                        }
+                    }
+                    
+                    guard let _ = bookToLoad else {
+                        return model.book(forTagName: "Android", at: 0)!
+                    }
+                    
+                    return bookToLoad!
+                }
+                
+
+                if let bookTitleSelected = defaults.string(forKey: "HackerBooks.Book") as String?,
+                    let tagNameSelected = defaults.string(forKey: "HackerBooks.Tag") as String? {
+                    bookToLoad = obtainBookToLoad(bookName: bookTitleSelected, tagName: tagNameSelected)
+                }
+                
+                
                 // Creamos navigation con Book
-                let bVC = BookViewController(model: model.book(forTagName: "Android", at: 0)!)
+                
+                // let bVC = BookViewController(model: model.book(forTagName: "Android", at: 0)!)
+                let bVC = BookViewController(model: bookToLoad)
                 let bNav = UINavigationController(rootViewController: bVC)
                 
                 // Asignamos delegados
@@ -95,7 +129,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    
     
     
     
