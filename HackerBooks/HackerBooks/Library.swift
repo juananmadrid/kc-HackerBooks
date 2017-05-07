@@ -7,8 +7,7 @@ class Library{
     typealias Multidictionary = MultiDictionary<Tag, Book>
     
     // MARK: - Properties
-    var mdict   : Multidictionary
-    
+    var mdict : Multidictionary
     let nc = NotificationCenter.default
     var notification : NSObjectProtocol?
 
@@ -16,8 +15,7 @@ class Library{
     // MARK: - Initialization
     init(bookArray : BooksArray){
         
-        mdict 	= 	Multidictionary()
-        
+        mdict = Multidictionary()
         bookLoad(array: bookArray)
         
         suscribeNotify()
@@ -55,7 +53,6 @@ class Library{
     // Nº total de TAGS ó SECCIONES
     var tagCount: Int{
         get{
-            // let countTag : Int = self.tags.count
             let countTag: Int = self.mdict.countBuckets
             return countTag
         }
@@ -120,14 +117,14 @@ class Library{
         }
     }
     
-    var countBooks: Int{                   // Nº Total de LIBROS (sin repetir)
+    var countBooks: Int{                   
         get{
             let countb : Int = mdict.countUnique
             return countb
         }
     }
     
-    var countCubos: Int{                    // Nº Total de LIBROS q aparecen (con repetidos)
+    var countCubos: Int{
         get{
             let countcub : Int = mdict.count
             return countcub

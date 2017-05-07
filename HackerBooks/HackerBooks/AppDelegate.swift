@@ -103,39 +103,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-// Utils
 
-/*
-func downloadJSONFiles() throws {
-    
-    do{
-        
-        // No están los ficheros cargados, los descargamos y los guardamos
-        let url = URL(string: "https://t.co/K9ziV0z3SJ")
-        let data = try? Data(contentsOf: url!)
-        guard let json = data else{
-            throw LibraryError.resourcePointedByURLNotReachable
-        }
-        
-        // Guardamos el json descargado en un archivo
-        
-        // Path de Documents
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        // url del fichero
-        let url_file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
-        // Creamos fichero
-        let fileManager = FileManager.default
-        let created = fileManager.createFile(atPath: url_file.path, contents: json, attributes: nil)
-        
-        // Creamos flag indicador para indicar fichero cargado
-        let flag: Bool = created
-        let defaults = UserDefaults.standard
-        defaults.set(flag, forKey: "filesLoaded")
-        
-        
-    }catch{
-        throw LibraryError.resourcePointedByURLNotReachable
-    }
-}
 
-*/
+

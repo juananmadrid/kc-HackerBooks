@@ -2,9 +2,6 @@ import UIKit
 
 class PdfViewController: UIViewController {
 
-    // MARK: - Properties
-    // @IBOutlet weak var pdf: UIImageView!            // UIWebView!
-    
     @IBOutlet weak var pdf: UIWebView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
@@ -27,11 +24,9 @@ class PdfViewController: UIViewController {
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         startNotify(book: model!)
-        
         syncViewWithModel(book: model!)
         
     }
@@ -55,6 +50,7 @@ class PdfViewController: UIViewController {
 extension PdfViewController {
     
     func startNotify(book: Book){
+        
         nc.addObserver(forName: PDFDidDownload, object: book, queue: nil) { (n: Notification) in
             self.syncViewWithModel(book: book)
         }

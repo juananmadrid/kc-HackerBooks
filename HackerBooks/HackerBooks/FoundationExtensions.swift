@@ -1,11 +1,3 @@
-//
-//  FoundationExtensions.swift
-//  HackerBooks
-//
-//  Created by KRONOX on 1/2/17.
-//  Copyright © 2017 kronox. All rights reserved.
-//
-
 import Foundation
 
 

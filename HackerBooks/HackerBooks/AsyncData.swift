@@ -9,7 +9,7 @@ class  AsyncData {
     
     let url     : URL
     var _data   : Data
-    private var _hasExternalData = false            // Llegó el dato
+    private var _hasExternalData = false
     weak public var delegate: AsyncDataDelegate?
     
     var data : Data{        // Si dato descargado en local lo devuelve y si no lo descarga
@@ -47,7 +47,7 @@ class  AsyncData {
             delegate?.asyncData(self, willStartLoadingFrom: local)  // Aviso de Inicio carga desde url local
             _data = try! Data(contentsOf: local)
             _hasExternalData = true
-            delegate?.asyncData(self, didEndLoadingFrom: local)     /// Aviso de Finalización de carga
+            delegate?.asyncData(self, didEndLoadingFrom: local)     // Aviso de Finalización de carga
             sendNotification()
             return true
         }else{

@@ -32,28 +32,28 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
     // MARK: - Accessors (Getters)
     
     public
-    var isEmpty: Bool {                 /// _dict VACÍO? (para compr. nil)
+    var isEmpty: Bool {
         return _dict.isEmpty
     }
     
     public
-    var countBuckets : Int{             /// Nº TAGs (CUBOS) = Nº SECCIONES = Nº KEYS
+    var countBuckets : Int{
         return _dict.count
     }
     
     public
-    var countUnique : Int {             /// TOTAL CUBOS = TOTAL LIBROS (sin repetir) POR TAG
+    var countUnique : Int {
         var tally = Bucket()
         
         for bucket in _dict.values{
-            tally = tally.union(bucket) // UNION (set): une sin repetidos
+            tally = tally.union(bucket)     // UNION (set): une sin repetidos
         }
         
         return tally.count
     }
     
     public
-    var count : Int{                    /// Nº CUBOS TOTALES (repetidos incluidos)
+    var count : Int{
         
         var tally = 0
         for bucket in _dict.values{
@@ -64,7 +64,7 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
     
     
     public
-    func countBucketsForValue(key: Key) -> Int{       /// Nº CUBOS POR CADA KEY
+    func countBucketsForValue(key: Key) -> Int{
         return _dict[key]!.count
     }
     
@@ -84,7 +84,7 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
     // if any.
     public
     subscript(key: Key) ->Bucket?{
-        get{                                    /// BUCKETS POR TAG O SECCIÓN
+        get{
             return _dict[key]
         }
         
@@ -108,11 +108,6 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
     // Hay que insertar valores en nuestro diccionario. Con el set normal no se puede
     // Con esta clave coge este libro
     // Toda función que cambie el estado (self) de la struct ha de llevar "mutating"
-
-    // Inserts a value into an existing bucket, or creates a new bucket if
-    // necessary.
-    // If the value is already in the bucket, does nothing.
-    // For a method to mutate a struct, it must be marked as 'mutating'
     public
     mutating func insert(value: Value, forKey key: Key){
         // Comprobamos si hay algo bajo esa clave y si no lo añado bajo nuevo bucket (Tag)

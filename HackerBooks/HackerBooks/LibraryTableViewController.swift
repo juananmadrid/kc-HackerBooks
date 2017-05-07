@@ -46,8 +46,7 @@ class LibraryTableViewController: UITableViewController {
     
     // Creación de la table
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // indexPath tiene 2 secciones: Section y Row
-        
+
         // Id para reutilizar celda. Ahora se implementa en BooksTableViewCell
         // let cellId = "BookCell"
         
@@ -144,7 +143,6 @@ class LibraryTableViewController: UITableViewController {
         array.sort()
         return array.joined(separator: ", ")
     }
-
     
 }
 
@@ -157,9 +155,7 @@ class LibraryTableViewController: UITableViewController {
         
         _ = nc.addObserver(forName: BookDidChange, object: nil, queue: nil) { (n: Notification) in
             self.tableView.reloadData()
-            
         }
-        
     }
     
     func stopObserve(){

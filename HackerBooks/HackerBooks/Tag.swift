@@ -14,7 +14,7 @@ class Tag {
         
         name = tagName.capitalized
         isFavorite = false
-        // Solo el Tag Favorite lo tendrá a True
+
     }
 
     
@@ -49,7 +49,7 @@ extension Tag: Comparable{
     }
 }
 
-extension Tag: Hashable{                    // Hash de Tag = hash de _name
+extension Tag: Hashable{
     public var hashValue: Int {
         return name.hashValue
     }
