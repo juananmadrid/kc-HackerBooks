@@ -186,7 +186,11 @@ extension Book: AsyncDataDelegate {
     func asyncData(_ sender: AsyncData, willStartLoadingFrom url: URL){
         print("Start Loading from \(url)")
     }
-        
+    
+    func asyncData(_ sender: AsyncData, didFailLoadingFrom url: URL, error: NSError){
+        print("Error loading \(url).\n \(error)")
+    }
+    
 
 }
 

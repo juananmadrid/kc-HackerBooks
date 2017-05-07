@@ -62,7 +62,12 @@ class  AsyncData {
             DispatchQueue.global(qos: .default).async {
                 self.delegate?.asyncData(self, willStartLoadingFrom: self.url) // Aviso Init download
                 
-                let tmpData = try! Data(contentsOf: self.url)
+                guard let tmpData = try? Data(contentsOf: self.url) else {
+                    
+                    let error = NSError(domain: "Error al cargar imagen", code: 256, userInfo: nil)
+                    self.delegate?.asyncData(self, didFailLoadingFrom: self.url, error: error)
+                    return
+                }
                 
                 DispatchQueue.main.async {
                     self._hasExternalData = true
