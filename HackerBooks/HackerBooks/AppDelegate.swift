@@ -4,7 +4,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -14,10 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Creamos una windows de verdad, no opcional
         window = UIWindow(frame: UIScreen.main.bounds)
     
-
-        /// TRASLADAR A JSONProcessing como segundo decoder
-        /// Incluimos descarga de Json o lo usamos desde main local como profe? seguro que profe no lo descarga?
-        
         
             // cargamos json
         do{
@@ -38,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 throw LibraryError.emptyJSONObject
             }
             
-            // Convermtimos array de diccionarios en array de libros
+            // Convertimos array de diccionarios en array de libros
             for book in jsonArray!{
                 do{
                     let book = try decode(book: book)
@@ -57,12 +53,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Creamos LibraryVC
             let lVC = LibraryTableViewController(model: model)
             
-            // Creamos un Nav
+            // Creamos un Nav con Library
             let lNav = UINavigationController(rootViewController: lVC)
             
+            // Detectamos tipo de dispositivo: iPhone o iPad
             
-            // Indicamos a la windows elemento root
-            window?.rootViewController = lNav
+            if DeviceType.IS_IPHONE == true {
+                print("Es un iphone")
+                
+                window?.rootViewController = lNav
+            }
+            
+            if DeviceType.IS_IPAD {
+                print("Es un iPad")
+                
+                // Creamos navigation con Book
+                let bVC = BookViewController(model: model.book(forTagName: "Android", at: 0)!)
+                let bNav = UINavigationController(rootViewController: bVC)
+                
+                // Asignamos delegados
+                lVC.delegate = bVC
+                
+                // Creamos spliViewController
+                let splitVC = UISplitViewController()
+                splitVC.viewControllers = [lNav, bNav]
+                
+                window?.rootViewController = splitVC
+            }
+            
             
             // Mostramos la window
             window?.makeKeyAndVisible()
@@ -77,6 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    
+    
     
     
     func applicationWillResignActive(_ application: UIApplication) {

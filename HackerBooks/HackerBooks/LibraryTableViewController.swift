@@ -5,7 +5,7 @@ class LibraryTableViewController: UITableViewController {
     
     // MARK: - Properties
     var model : Library
-    weak var delegate : LibraryTableViewController? = nil
+    weak var delegate : LibraryTableViewControllerDelegate?
 
     let nc = NotificationCenter.default
     var notification : NSObjectProtocol?
@@ -103,9 +103,17 @@ class LibraryTableViewController: UITableViewController {
         // Descubrimos el libro seleccionado
         let book = model.book(forTagName: tag.name, at: indexPath.row)
         
-        // Pusheamos
-        let bookVC = BookViewController(model: book!)
-        self.navigationController?.pushViewController(bookVC, animated: true)
+        if DeviceType.IS_IPHONE {
+            // Pusheamos
+            let bookVC = BookViewController(model: book!)
+            self.navigationController?.pushViewController(bookVC, animated: true)
+        }
+        
+        if DeviceType.IS_IPAD {
+            
+            delegate?.bookDidSelect(sender: book!)
+        }
+        
     }
     
     
@@ -149,7 +157,7 @@ class LibraryTableViewController: UITableViewController {
 
 // MARK: - Notifications
 
- extension LibraryTableViewController{
+extension LibraryTableViewController{
     
     func suscribeNotify(){
         
@@ -167,4 +175,16 @@ class LibraryTableViewController: UITableViewController {
     
 }
 
+// MARK: - Delegate
+
+protocol LibraryTableViewControllerDelegate: class {
+    
+    func bookDidSelect(sender: Book)
+    
+}
+
+extension LibraryTableViewControllerDelegate {
+    
+    func bookDidSelect(sender: Book) {}
+}
 

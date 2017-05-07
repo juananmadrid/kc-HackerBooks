@@ -24,6 +24,7 @@
 		584D3D971EB758E10058E8FD /* BooksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584D3D951EB758E10058E8FD /* BooksTableViewCell.swift */; };
 		584D3D981EB758E10058E8FD /* BooksTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 584D3D961EB758E10058E8FD /* BooksTableViewCell.xib */; };
 		5853E16D1EA7DD7200CC5F5D /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = 5853E16C1EA7DD7200CC5F5D /* books_readable.json */; };
+		586A0D741EBF582300CB0D41 /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0D731EBF582300CB0D41 /* DeviceType.swift */; };
 		587B02AE1EBF320800C1C753 /* LibraryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 587B02AD1EBF320800C1C753 /* LibraryTableViewController.xib */; };
 		588710431E89759D0097266D /* emptyBookCover.png in Resources */ = {isa = PBXBuildFile; fileRef = 588710411E89759D0097266D /* emptyBookCover.png */; };
 		588710441E89759D0097266D /* emptyPdf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 588710421E89759D0097266D /* emptyPdf.pdf */; };
@@ -54,6 +55,7 @@
 		584D3D951EB758E10058E8FD /* BooksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksTableViewCell.swift; sourceTree = "<group>"; };
 		584D3D961EB758E10058E8FD /* BooksTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BooksTableViewCell.xib; sourceTree = "<group>"; };
 		5853E16C1EA7DD7200CC5F5D /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
+		586A0D731EBF582300CB0D41 /* DeviceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
 		587B02AD1EBF320800C1C753 /* LibraryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryTableViewController.xib; sourceTree = "<group>"; };
 		588710411E89759D0097266D /* emptyBookCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyBookCover.png; sourceTree = "<group>"; };
 		588710421E89759D0097266D /* emptyPdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = emptyPdf.pdf; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				58892E8F1E42517600AE5C82 /* FoundationExtensions.swift */,
+				586A0D731EBF582300CB0D41 /* DeviceType.swift */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				584D3D971EB758E10058E8FD /* BooksTableViewCell.swift in Sources */,
 				58DA82F61E47ADC300DAEA24 /* PdfViewController.swift in Sources */,
 				58207EF01E4203CB005E8B64 /* JSONProcessing.swift in Sources */,
+				586A0D741EBF582300CB0D41 /* DeviceType.swift in Sources */,
 				58207EEE1E41F6D4005E8B64 /* AsyncData.swift in Sources */,
 				58892E901E42517600AE5C82 /* FoundationExtensions.swift in Sources */,
 				583386621E40E5A5004D2526 /* AppDelegate.swift in Sources */,

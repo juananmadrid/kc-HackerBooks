@@ -9,7 +9,7 @@ class BookViewController: UIViewController {
     static let bookKey = "BookKey"
 
     // MARK: - Properties
-    let model : Book
+    var model : Book
 
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var favoriteItem: UIBarButtonItem!
@@ -78,6 +78,13 @@ class BookViewController: UIViewController {
     
 }
 
+extension BookViewController: LibraryTableViewControllerDelegate {
+    
+    func bookDidSelect(sender: Book) {
+        self.model = sender
+        syncViewWithModel()
+    }
+}
 
 
 
